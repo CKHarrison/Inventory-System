@@ -33,12 +33,12 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <RadioButton fx:id="inHouseRadioButton" mnemonicParsing="false" text="In-House" GridPane.columnIndex="1">
+            <RadioButton fx:id="addPartInHouseRadioButton" mnemonicParsing="false" text="In-House" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </RadioButton>
-            <RadioButton fx:id="ouscourcedRadioButton" contentDisplay="CENTER" mnemonicParsing="false" text="Outscourced" GridPane.columnIndex="2" />
+            <RadioButton fx:id="addPartOutsourcedRadioButton" contentDisplay="CENTER" mnemonicParsing="false" text="Outscourced" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <GridPane layoutX="64.0" layoutY="63.0" prefHeight="152.0" prefWidth="336.0">
@@ -74,14 +74,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Max" />
-            <Label text="Min" GridPane.columnIndex="2">
+            <Label fx:id="addPartMaxLabel" text="Max" />
+            <Label fx:id="addPartMinLabel" text="Min" GridPane.columnIndex="2">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <TextField prefWidth="124.0" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="3" />
+            <TextField fx:id="addPartMaxTextArea" prefWidth="124.0" GridPane.columnIndex="1" />
+            <TextField fx:id="addPartMinTextArea" GridPane.columnIndex="3" />
          </children>
       </GridPane>
       <GridPane layoutX="64.0" layoutY="268.0" prefHeight="47.0" prefWidth="336.0">
@@ -93,8 +93,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="companyNameOrMachineID" text="Company Name" />
-            <TextField fx:id="companyNameOrMachineIDTextField" GridPane.columnIndex="1" />
+            <Label fx:id="addPartCompanyNameOrMachineIDLabel" text="Company Name" />
+            <TextField fx:id="addPartCompanyNameOrMachineIDTextField" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <HBox alignment="TOP_RIGHT" layoutX="64.0" layoutY="332.0" prefHeight="100.0" prefWidth="336.0" spacing="20.0">

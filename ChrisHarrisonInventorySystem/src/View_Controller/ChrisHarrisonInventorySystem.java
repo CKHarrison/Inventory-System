@@ -19,7 +19,7 @@ public class ChrisHarrisonInventorySystem extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("addPartInhouseOutSourcedView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ModifyPartView.fxml"));
         
         Scene scene = new Scene(root);
         
