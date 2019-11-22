@@ -37,7 +37,7 @@ public class Inventory {
     */
     public Part lookupPart(int partId) {
         for(Part part : allParts) {
-            if(part.id == partId) {
+            if(part.getId() == partId) {
                 return part;
             } 
         }
@@ -53,7 +53,7 @@ public class Inventory {
         //creating new observable array to hold all of the found parts
         ObservableList<Part> foundPartList = FXCollections.observableArrayList();
         for(Part part : allParts) {
-            if(part.name.toLowerCase() == partName.toLowerCase()){
+            if(part.getName().toLowerCase() == partName.toLowerCase()){
                 foundPartList.add(part);
             }
                 
@@ -69,7 +69,7 @@ public class Inventory {
     //same search method as the lookupPart based on the product id
     public Product lookProduct(int productId) {
         for(Product product : allProducts) {
-            if(product.id == productId){
+            if(product.getId() == productId){
                 return product;
             }
         }
@@ -81,7 +81,7 @@ public class Inventory {
     public ObservableList<Product> lookupProduct(String productName) {
         ObservableList<Product> foundProductsList = FXCollections.observableArrayList();
         for(Product product : allProducts) {
-            if(product.name.toLowerCase() == productName.toLowerCase()) {
+            if(product.getName().toLowerCase() == productName.toLowerCase()) {
                 foundProductsList.add(product);
             }
         }
