@@ -5,10 +5,21 @@
  */
 package Model;
 
+import javafx.collections.ObservableList;
+
 /**
  *
  * @author chris
  */
-public class Product {
+public class Product extends Part {
+    private ObservableList<Part> associatedParts;
+    private int id;
+    private String name;
+    private double price;
+    private int stock;
+    private int min;
+    private int max;
+    
+    
     
 }

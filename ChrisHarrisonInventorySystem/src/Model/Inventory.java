@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
@@ -47,12 +49,21 @@ public class Inventory {
     * letters lowercase
     * if no part is found, return null
     */
-    public ObservableList<Part> LookupPart(String partName) {
+    public ObservableList<Part> lookupPart(String partName) {
+        //creating new observable array to hold all of the found parts
+        ObservableList<Part> foundPartList = FXCollections.observableArrayList();
         for(Part part : allParts) {
-            if(part.name.toLowerCase() == partName.toLowerCase())
-                return allParts.get(part);
+            if(part.name.toLowerCase() == partName.toLowerCase()){
+                foundPartList.add(part);
+            }
+                
         }
-        return null;
+        //Making sure the application will not error out if the list is empty
+        if(foundPartList.isEmpty()) {
+            return null;
+        } else {
+            return foundPartList;
+        }
     }
     
     //same search method as the lookupPart based on the product id
@@ -65,13 +76,20 @@ public class Inventory {
         return null;
     }
     
+    //Matches the logic of the observable list lookupPart method
+    
     public ObservableList<Product> lookupProduct(String productName) {
+        ObservableList<Product> foundProductsList = FXCollections.observableArrayList();
         for(Product product : allProducts) {
             if(product.name.toLowerCase() == productName.toLowerCase()) {
-                return allProducts.get(product);
-            } 
+                foundProductsList.add(product);
+            }
         }
-        return null;
+        if(foundProductsList.isEmpty()) {
+            return null;
+        } else {
+            return foundProductsList;
+        }
     }
     
     /*
