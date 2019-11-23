@@ -8,11 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ChrisHarrisonInventorySystem.jar" size="15128" download="eager" />
+    <jar href="ChrisHarrisonInventorySystem.jar" size="15316" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ChrisHarrisonInventorySystem" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="View_Controller.ChrisHarrisonInventorySystem"  name="ChrisHarrisonInventorySystem" />
+  <jfx:javafx-desc  width="800" height="600" main-class="chrisharrisoninventorysystem.ChrisHarrisonInventorySystem"  name="ChrisHarrisonInventorySystem" />
   <update check="always"/>
 </jnlp>

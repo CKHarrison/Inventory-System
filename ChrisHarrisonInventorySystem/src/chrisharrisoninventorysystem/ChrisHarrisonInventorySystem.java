@@ -1,5 +1,5 @@
 
-package View_Controller;
+package chrisharrisoninventorysystem;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ public class ChrisHarrisonInventorySystem extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("AddPartView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
         
         Scene scene = new Scene(root);
         
