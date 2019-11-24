@@ -10,106 +10,110 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="370.0" prefWidth="525.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="View_Controller.AddPartViewController">
+<AnchorPane id="AnchorPane" prefHeight="370.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="7.0" layoutY="7.0" prefHeight="47.0" prefWidth="472.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <VBox layoutX="42.0" layoutY="7.0" prefHeight="340.0" prefWidth="440.0">
          <children>
-            <Label text="Add Part">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Label>
-            <RadioButton fx:id="addPartInHouseRadioButton" mnemonicParsing="false" text="In-House" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </RadioButton>
-            <RadioButton fx:id="addPartOutsourcedRadioButton" contentDisplay="CENTER" mnemonicParsing="false" text="Outscourced" GridPane.columnIndex="2" />
+            <GridPane alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="441.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Add Part">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <RadioButton fx:id="addPartInHouseRadioButton" mnemonicParsing="false" text="In-House" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="addPartOutSourcedRadioButton" contentDisplay="CENTER" mnemonicParsing="false" text="Outscourced" GridPane.columnIndex="2" />
+               </children>
+            </GridPane>
+            <GridPane prefHeight="152.0" prefWidth="336.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="143.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="298.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="idLabel" text="ID" />
+                  <Label fx:id="nameLabel" text="Name" GridPane.rowIndex="1" />
+                  <Label fx:id="invLabel" text="Inv" GridPane.rowIndex="2" />
+                  <Label fx:id="priceCostLabel" text="Price/Cost" GridPane.rowIndex="3" />
+                  <TextField fx:id="addPartTextArea" GridPane.columnIndex="1" />
+                  <TextField fx:id="addPartNameTextArea" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="addInvTextArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="addPartPriceCostTextArea" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+            <GridPane prefHeight="58.0" prefWidth="428.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="142.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.0" minWidth="10.0" prefWidth="134.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="42.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="maxLabel" text="Max" />
+                  <Label fx:id="minLabel" text="Min" GridPane.columnIndex="2">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="addPartMaxTextArea" prefHeight="27.0" prefWidth="96.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="addPartMinTextArea" GridPane.columnIndex="3" />
+               </children>
+            </GridPane>
+            <GridPane prefHeight="47.0" prefWidth="336.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="145.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.0" minWidth="10.0" prefWidth="296.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="addPartCompanyNameOrMachineID" text="Company Name" />
+                  <TextField fx:id="addPartCompanyNameOrMachineIDTextField" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="45.0" prefWidth="441.0" spacing="20.0">
+               <children>
+                  <Button fx:id="addPartSaveButton" mnemonicParsing="false" text="Save">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="addPartCancelButton" mnemonicParsing="false" text="Cancel">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
-      </GridPane>
-      <GridPane layoutX="64.0" layoutY="63.0" prefHeight="152.0" prefWidth="336.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label fx:id="idLabel" text="ID" />
-            <Label fx:id="nameLabel" text="Name" GridPane.rowIndex="1" />
-            <Label fx:id="invLabel" text="Inv" GridPane.rowIndex="2" />
-            <Label fx:id="priceCostLabel" text="Price/Cost" GridPane.rowIndex="3" />
-            <TextField fx:id="idTextArea" GridPane.columnIndex="1" />
-            <TextField fx:id="nameTextArea" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="invTextArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="priceCostTextArea" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-         </children>
-      </GridPane>
-      <GridPane layoutX="64.0" layoutY="210.0" prefHeight="58.0" prefWidth="428.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="167.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="124.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="40.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="96.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label fx:id="addPartMaxLabel" text="Max" />
-            <Label fx:id="addPartMinLabel" text="Min" GridPane.columnIndex="2">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <TextField fx:id="addPartMaxTextArea" prefWidth="124.0" GridPane.columnIndex="1" />
-            <TextField fx:id="addPartMinTextArea" GridPane.columnIndex="3" />
-         </children>
-      </GridPane>
-      <GridPane layoutX="64.0" layoutY="268.0" prefHeight="47.0" prefWidth="336.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label fx:id="addPartCompanyNameOrMachineIDLabel" text="Company Name" />
-            <TextField fx:id="addPartCompanyNameOrMachineIDTextField" GridPane.columnIndex="1" />
-         </children>
-      </GridPane>
-      <HBox alignment="TOP_RIGHT" layoutX="64.0" layoutY="332.0" prefHeight="100.0" prefWidth="336.0" spacing="20.0">
-         <children>
-            <Button fx:id="addPartSaveButton" mnemonicParsing="false" text="Save">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="addPartCancelButton" mnemonicParsing="false" text="Cancel">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
+      </VBox>
    </children>
 </AnchorPane>
