@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.MainScreenController">
    <children>
       <Label layoutX="35.0" layoutY="34.0" text="Inventory Managment System">
          <font>
@@ -52,7 +52,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Button>
-                              <TextField fx:id="partsSearchTextArea" prefHeight="27.0" prefWidth="179.0" GridPane.columnIndex="2">
+                              <TextField fx:id="partsSearchTextField" prefHeight="27.0" prefWidth="179.0" GridPane.columnIndex="2">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -62,12 +62,12 @@
                               </TextField>
                            </children>
                         </GridPane>
-                        <TableView prefHeight="210.0" prefWidth="692.0">
+                        <TableView fx:id="partTableView" maxWidth="-Infinity" prefHeight="210.0" prefWidth="680.0">
                            <columns>
-                              <TableColumn fx:id="partId" prefWidth="110.0" text="PartID" />
-                              <TableColumn fx:id="partName" prefWidth="273.0" text="Part Name" />
-                              <TableColumn fx:id="partInventoryLabel" prefWidth="111.0" text="Inventory Level" />
-                              <TableColumn fx:id="partPricePerUnit" prefWidth="197.0" text="Price/Cost per Unit" />
+                              <TableColumn fx:id="partIdTableColumn" prefWidth="166.75" text="PartID" />
+                              <TableColumn fx:id="partNameTableColumn" prefWidth="166.75" text="Part Name" />
+                              <TableColumn fx:id="partInventoryLabelTableColumn" prefWidth="166.75" text="Inventory Level" />
+                              <TableColumn fx:id="partPricePerUnitTableColumn" prefWidth="166.75" text="Price/Cost per Unit" />
                            </columns>
                         </TableView>
                         <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
@@ -118,7 +118,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Button>
-                              <TextField fx:id="productSearchArea" prefHeight="27.0" prefWidth="179.0" GridPane.columnIndex="2">
+                              <TextField fx:id="productSearchField" prefHeight="27.0" prefWidth="179.0" GridPane.columnIndex="2">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -128,12 +128,12 @@
                               </TextField>
                            </children>
                         </GridPane>
-                        <TableView prefHeight="210.0" prefWidth="698.0">
+                        <TableView fx:id="productTabelView" prefHeight="210.0" prefWidth="667.0">
                            <columns>
-                              <TableColumn fx:id="productID" prefWidth="110.0" text="PartID" />
-                              <TableColumn fx:id="productName" prefWidth="253.0" text="Part Name" />
-                              <TableColumn fx:id="productInventoryLevel" prefWidth="118.0" text="Inventory Level" />
-                              <TableColumn fx:id="ProductPricePerUnit" prefWidth="210.0" text="Price/Cost per Unit" />
+                              <TableColumn fx:id="productIDTableColumn" prefWidth="166.75" text="Product ID" />
+                              <TableColumn fx:id="productNameTableColumn" prefWidth="166.75" text="Product Name" />
+                              <TableColumn fx:id="productInventoryLevelTableColumn" prefWidth="166.75" text="Inventory Level" />
+                              <TableColumn fx:id="ProductPricePerUnitTableColumn" prefWidth="166.75" text="Price Per Unit" />
                            </columns>
                            <VBox.margin>
                               <Insets />

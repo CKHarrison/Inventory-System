@@ -15,7 +15,7 @@ public class ChrisHarrisonInventorySystem extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/AddProductView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProductView.fxml"));
         
         Scene scene = new Scene(root);
         

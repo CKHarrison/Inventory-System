@@ -38,7 +38,7 @@
                   <Insets />
                </GridPane.margin>
             </Button>
-            <TextField fx:id="addProductTextArea" GridPane.columnIndex="2" />
+            <TextField fx:id="addProductTextField" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <GridPane layoutX="600.0" layoutY="107.0" prefHeight="203.0" prefWidth="541.0">
@@ -51,15 +51,15 @@
           <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647">
+            <TableView fx:id="addProductTableView" prefHeight="200.0" prefWidth="540.0" GridPane.columnSpan="2147483647">
               <columns>
-                <TableColumn prefWidth="75.0" text="Part ID" />
-                <TableColumn prefWidth="153.0" text="Part Name" />
-                  <TableColumn prefWidth="131.0" text="Inventory Level" />
-                  <TableColumn prefWidth="181.0" text="Price Per Unit" />
+                <TableColumn fx:id="addPartIDTableColumn" prefWidth="135.0" text="Part ID" />
+                <TableColumn fx:id="addPartNameTableColumn" prefWidth="135.0" text="Part Name" />
+                  <TableColumn fx:id="addPartInvLevelTableColumn" prefWidth="135.0" text="Inventory Level" />
+                  <TableColumn fx:id="addPartPriceTableColumn" prefWidth="135.0" text="Price Per Unit" />
               </columns>
             </TableView>
-            <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="addProductAddButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
@@ -76,15 +76,15 @@
             <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647">
+            <TableView fx:id="deleteProductTableView" prefHeight="200.0" prefWidth="540.0" GridPane.columnSpan="2147483647">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Part ID" />
-                  <TableColumn prefWidth="153.0" text="Part Name" />
-                  <TableColumn prefWidth="131.0" text="Inventory Level" />
-                  <TableColumn prefWidth="181.0" text="Price Per Unit" />
+                  <TableColumn fx:id="deletePartTableColumn" prefWidth="135.0" text="Part ID" />
+                  <TableColumn fx:id="deletePartNameTableColumn" prefWidth="135.0" text="Part Name" />
+                  <TableColumn fx:id="deleteInvLevelTableColumn" prefWidth="135.0" text="Inventory Level" />
+                  <TableColumn fx:id="deletePriceTableColumn" prefWidth="135.0" text="Price Per Unit" />
                </columns>
             </TableView>
-            <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Delete" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="deleteProductButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Delete" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
@@ -100,12 +100,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" text="Save" GridPane.halignment="RIGHT">
+            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" text="Save" GridPane.halignment="RIGHT">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button cancelButton="true" mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <font>
                   <Font size="15.0" />
                </font>
@@ -124,7 +124,7 @@
                   <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="ID">
+                  <Label fx:id="IdLabel" text="ID">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -134,8 +134,8 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <TextField disable="true" promptText="Auto Gen - Disabled" GridPane.columnIndex="1" />
-                  <TextField promptText="Product Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="addProductIDTextField" disable="true" promptText="Auto Gen - Disabled" GridPane.columnIndex="1" />
+                  <TextField fx:id="addProductNameTextField" promptText="Product Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane hgap="10.0" prefHeight="197.0" prefWidth="400.0">
@@ -166,15 +166,15 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Max" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField promptText="Price" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField promptText="Inv" GridPane.columnIndex="1" />
+                  <TextField fx:id="addProductMaxTextField" promptText="Max" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="addProductPriceTextField" promptText="Price" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="addProductInvTextField" promptText="Inv" GridPane.columnIndex="1" />
                   <Label alignment="CENTER_RIGHT" text="Min" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Min" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <TextField fx:id="addProductMinTextField" promptText="Min" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>

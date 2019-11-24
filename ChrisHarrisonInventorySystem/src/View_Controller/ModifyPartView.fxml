@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="370.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="370.0" prefWidth="525.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ModifyPartViewController">
    <children>
       <VBox layoutX="42.0" layoutY="7.0" prefHeight="340.0" prefWidth="440.0">
          <children>
@@ -59,10 +59,10 @@
                   <Label fx:id="nameLabel" text="Name" GridPane.rowIndex="1" />
                   <Label fx:id="invLabel" text="Inv" GridPane.rowIndex="2" />
                   <Label fx:id="priceCostLabel" text="Price/Cost" GridPane.rowIndex="3" />
-                  <TextField fx:id="modifyPartTextArea" GridPane.columnIndex="1" />
-                  <TextField fx:id="modifyPartNameTextArea" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="modifyPartInvTextArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="modifyPartPriceCostTextArea" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="modifyPartTextField" disable="true" GridPane.columnIndex="1" />
+                  <TextField fx:id="modifyPartNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="modifyPartInvTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="modifyPartPriceCostTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <GridPane prefHeight="58.0" prefWidth="428.0">
@@ -82,8 +82,8 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="modifyPartMaxTextArea" prefHeight="27.0" prefWidth="96.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="modifyPartMinTextArea" GridPane.columnIndex="3" />
+                  <TextField fx:id="modifyPartMaxTextField" prefHeight="27.0" prefWidth="96.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="modifyPartMinTextField" GridPane.columnIndex="3" />
                </children>
             </GridPane>
             <GridPane prefHeight="47.0" prefWidth="336.0">
@@ -95,7 +95,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="modifyPartCompanyNameOrMachineID" text="Company Name" />
+                  <Label fx:id="modifyPartCompanyNameOrMachineIDLabel" text="Company Name" />
                   <TextField fx:id="modifyPartCompanyNameOrMachineIDTextField" GridPane.columnIndex="1" />
                </children>
             </GridPane>

@@ -6,12 +6,12 @@ package Model;
  * @author chris
  */
 public abstract class Part {
-    private int id;
-    private String name;
-    private double price;
-    private int stock;
-    private int min;
-    private int max;
+    protected int id;
+    protected String name;
+    protected double price;
+    protected int stock;
+    protected int min;
+    protected int max;
 
     public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = id;

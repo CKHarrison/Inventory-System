@@ -24,7 +24,7 @@ public class AddPartViewController implements Initializable {
     @FXML
     private RadioButton addPartInHouseRadioButton;
     @FXML
-    private RadioButton addPartOutsourcedRadioButton;
+    private RadioButton addPartOutSourcedRadioButton;
     @FXML
     private Label idLabel;
     @FXML
@@ -34,23 +34,23 @@ public class AddPartViewController implements Initializable {
     @FXML
     private Label priceCostLabel;
     @FXML
-    private TextField idTextArea;
+    private TextField addPartIdTextArea;
     @FXML
-    private TextField nameTextArea;
+    private TextField addPartNameTextField;
     @FXML
-    private TextField invTextArea;
+    private TextField addPartInvTextField;
     @FXML
-    private TextField priceCostTextArea;
+    private TextField addPartPriceCostTextField;
     @FXML
-    private Label addPartMaxLabel;
+    private Label maxLabel;
     @FXML
-    private Label addPartMinLabel;
+    private Label minLabel;
     @FXML
-    private TextField addPartMaxTextArea;
+    private TextField addPartMaxTextField;
     @FXML
-    private TextField addPartMinTextArea;
+    private TextField addPartMinTextField;
     @FXML
-    private Label addPartCompanyNameOrMachineIDLabel;
+    private Label addPartCompanyNameOrMachineID;
     @FXML
     private TextField addPartCompanyNameOrMachineIDTextField;
     @FXML
