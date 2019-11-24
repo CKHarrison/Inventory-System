@@ -1,14 +1,24 @@
 package View_Controller;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class AddProductViewController {
+    //Global variables
+    Stage stage;
+    Parent scene;
+    
+    //FXML Buttons, Fields, and Labels
 
     @FXML
     private Button addProductSearchButton;
@@ -102,8 +112,11 @@ public class AddProductViewController {
     }
     
       @FXML
-    void onActionCancelButton(ActionEvent event) {
-         System.out.println("Cancel Button Clicked");
+    void onActionCancelButton(ActionEvent event) throws IOException {
+        stage = stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }  
 
 }

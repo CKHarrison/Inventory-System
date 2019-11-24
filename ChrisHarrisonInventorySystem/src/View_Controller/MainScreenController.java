@@ -5,15 +5,20 @@
  */
 package View_Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -21,6 +26,13 @@ import javafx.scene.control.TextField;
  * @author chris
  */
 public class MainScreenController implements Initializable {
+    
+    //global variables
+    Stage stage;
+    Parent scene;
+    
+    
+    //FXML Buttons, Fields, labels
 
     @FXML
     private Button partsSearchButton;
@@ -75,13 +87,18 @@ public class MainScreenController implements Initializable {
     }
     
     @FXML
-    void onActionAddPartButton(ActionEvent event) {
+    void onActionAddPartButton(ActionEvent event) throws IOException {
+
+        switchScene(event, "AddPartView");
+        
         System.out.println("Add Part Button Clicked");
     }
     
+    
+    //Switch Scene to modifyPartView 
      @FXML
-    void onActionModifyPartButton(ActionEvent event) {
-         System.out.println("Modify Part Button Clicked");
+    void onActionModifyPartButton(ActionEvent event) throws IOException {
+         switchScene(event, "ModifyPartView");
     }
     
      @FXML
@@ -92,17 +109,18 @@ public class MainScreenController implements Initializable {
     //Product Button Handlers
       @FXML
     void onActionSearchProductButton(ActionEvent event) {
+       
           System.out.println("Search Product Button Clicked");
     }
 
     @FXML
-    void onActionAddProductButton(ActionEvent event) {
-        System.out.println("Add Product Button Clicked");
+    void onActionAddProductButton(ActionEvent event) throws IOException {
+        switchScene(event, "AddProductView");
     }
     
      @FXML
-    void onActionModifyProductButton(ActionEvent event) {
-         System.out.println("Modify Product Button Clicked");
+    void onActionModifyProductButton(ActionEvent event) throws IOException {
+         switchScene(event, "ModifyProductView");
     }
 
     @FXML
@@ -113,8 +131,21 @@ public class MainScreenController implements Initializable {
    //Exit Button
         @FXML
     void OnActionExitButton(ActionEvent event) {
-            System.out.println("Exit Button Clicked");
+        System.exit(0);
     }
+    
+        //Switch Scene method 
+    public void switchScene(ActionEvent event, String sceneName) throws IOException {
+        //switching the stage to the AddPartView
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        //loading the resource
+        scene = FXMLLoader.load(getClass().getResource("/View_Controller/" 
+                + sceneName + ".fxml"));
+        //switching the scene to a new stage
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
 
 
     /**
