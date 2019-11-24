@@ -11,13 +11,6 @@ public class OutSourcedPart extends Part{
     public OutSourcedPart(String companyName, int id, String name, double price, int stock, int min, int max) {
         super(id, name, price, stock, min, max);
         
-         setId(id);
-        setName(name);
-        setPrice(price);
-        setStock(stock);
-        setMin(min);
-        setMax(max);
-        
         this.companyName = companyName;
     }    
     
