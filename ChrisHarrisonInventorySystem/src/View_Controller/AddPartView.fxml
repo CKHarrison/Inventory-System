@@ -59,9 +59,9 @@
                   <Label fx:id="nameLabel" text="Name" GridPane.rowIndex="1" />
                   <Label fx:id="invLabel" text="Inv" GridPane.rowIndex="2" />
                   <Label fx:id="priceCostLabel" text="Price/Cost" GridPane.rowIndex="3" />
-                  <TextField fx:id="addPartTextArea" GridPane.columnIndex="1" />
+                  <TextField fx:id="addPartIdTextArea" GridPane.columnIndex="1" />
                   <TextField fx:id="addPartNameTextArea" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="addInvTextArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="addPartInvTextArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="addPartPriceCostTextArea" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
