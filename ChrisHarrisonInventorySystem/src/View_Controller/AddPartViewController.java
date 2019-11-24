@@ -7,6 +7,7 @@ package View_Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -57,6 +58,26 @@ public class AddPartViewController implements Initializable {
     private Button addPartSaveButton;
     @FXML
     private Button addPartCancelButton;
+
+    @FXML
+    void onActionInHouseButton(ActionEvent event) {
+        System.out.println("InHouse Button Clicked");
+    }
+
+    @FXML
+    void onActionOutsourcedButton(ActionEvent event) {
+        System.out.println("OutSourcedButton Clicked");
+    }
+
+    @FXML
+    void onActionSavedButton(ActionEvent event) {
+        System.out.println("Save Button Clicked");
+    }
+    
+      @FXML
+    void onActionCancelButton(ActionEvent event) {
+        System.out.println("Cancel Button Clicked");
+    }
 
     /**
      * Initializes the controller class.

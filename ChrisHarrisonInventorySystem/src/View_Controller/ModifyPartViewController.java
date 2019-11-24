@@ -7,6 +7,7 @@ package View_Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -57,6 +58,33 @@ public class ModifyPartViewController implements Initializable {
     private Button modifyPartSaveButton;
     @FXML
     private Button modifyPartCancelButton;
+    
+    //Button Event Handlers
+    
+    //Radio Buttons
+    @FXML
+    void onActionInhouseButton(ActionEvent event) {
+        System.out.println("In-House Button Clicked");
+    }
+    
+    @FXML
+    void onActionOutsourcedButton(ActionEvent event) {
+         System.out.println("Outsourced Button Clicked");
+    }
+    
+    //Save and Cancel Buttons
+    
+    @FXML
+    void onActionSaveButton(ActionEvent event) {
+        System.out.println("Save Button Clicked");
+    }
+    
+    @FXML
+    void onActionCancelButton(ActionEvent event) {
+        System.out.println("Cancel Button Clicked");
+    }   
+
+  
 
     /**
      * Initializes the controller class.

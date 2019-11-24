@@ -35,12 +35,12 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <RadioButton fx:id="addPartInHouseRadioButton" mnemonicParsing="false" text="In-House" GridPane.columnIndex="1">
+                  <RadioButton fx:id="addPartInHouseRadioButton" mnemonicParsing="false" onAction="#onActionInHouseButton" text="In-House" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </RadioButton>
-                  <RadioButton fx:id="addPartOutSourcedRadioButton" contentDisplay="CENTER" mnemonicParsing="false" text="Outscourced" GridPane.columnIndex="2" />
+                  <RadioButton fx:id="addPartOutSourcedRadioButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionOutsourcedButton" text="Outscourced" GridPane.columnIndex="2" />
                </children>
             </GridPane>
             <GridPane prefHeight="152.0" prefWidth="336.0">
@@ -101,12 +101,12 @@
             </GridPane>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="45.0" prefWidth="441.0" spacing="20.0">
                <children>
-                  <Button fx:id="addPartSaveButton" mnemonicParsing="false" text="Save">
+                  <Button fx:id="addPartSaveButton" mnemonicParsing="false" onAction="#onActionSavedButton" text="Save">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addPartCancelButton" mnemonicParsing="false" text="Cancel">
+                  <Button fx:id="addPartCancelButton" mnemonicParsing="false" onAction="#onActionCancelButton" text="Cancel">
                      <font>
                         <Font size="16.0" />
                      </font>

@@ -1,5 +1,6 @@
 package View_Controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -77,5 +78,32 @@ public class AddProductViewController {
 
     @FXML
     private TextField addProductMinTextField;
+    
+    //Button Handlers
+    
+    @FXML
+    void onActionSearchButton(ActionEvent event) {
+        System.out.println("Search Button clicked");
+    }
+    
+       @FXML
+    void onActionAddButton(ActionEvent event) {
+           System.out.println("Add Button Clicked");
+    }
+
+    @FXML
+    void onActionDeleteButton(ActionEvent event) {
+        System.out.println("Delete Button Clicked");
+    }
+
+    @FXML
+    void onActionSaveButton(ActionEvent event) {
+        System.out.println("Save Button Clicked");
+    }
+    
+      @FXML
+    void onActionCancelButton(ActionEvent event) {
+         System.out.println("Cancel Button Clicked");
+    }  
 
 }

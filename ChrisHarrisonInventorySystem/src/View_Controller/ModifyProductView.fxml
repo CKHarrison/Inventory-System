@@ -30,7 +30,7 @@
                   <Font name="System Bold" size="26.0" />
                </font>
             </Label>
-            <Button fx:id="modifyProductSearchButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <Button fx:id="modifyProductSearchButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onActionSearchButton" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <font>
                   <Font size="18.0" />
                </font>
@@ -59,7 +59,7 @@
                   <TableColumn fx:id="modifyProductAddPriceTableColumn" prefWidth="135.0" text="Price Per Unit" />
                </columns>
             </TableView>
-            <Button fx:id="modifyProductAddButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="modifyProductAddButton" mnemonicParsing="false" onAction="#onActionAddButton" prefHeight="29.0" prefWidth="89.0" text="Add" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
@@ -84,7 +84,7 @@
                   <TableColumn fx:id="modifyProductDeletePriceTableColumn" prefWidth="135.0" text="Price Per Unit" />
                </columns>
             </TableView>
-            <Button fx:id="modifyProductDeleteButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Delete" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="modifyProductDeleteButton" mnemonicParsing="false" onAction="#onActionDeleteButton" prefHeight="29.0" prefWidth="89.0" text="Delete" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
@@ -100,12 +100,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="modifyProductSaveButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" text="Save" GridPane.halignment="RIGHT">
+            <Button fx:id="modifyProductSaveButton" mnemonicParsing="false" onAction="#onActionSaveButton" prefHeight="37.0" prefWidth="87.0" text="Save" GridPane.halignment="RIGHT">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="modifyProductCancelButton" cancelButton="true" mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <Button fx:id="modifyProductCancelButton" cancelButton="true" mnemonicParsing="false" onAction="#onActionCancelButton" prefHeight="37.0" prefWidth="87.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <font>
                   <Font size="15.0" />
                </font>

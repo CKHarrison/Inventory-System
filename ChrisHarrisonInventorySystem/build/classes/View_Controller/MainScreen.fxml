@@ -47,7 +47,7 @@
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="partsSearchButton" alignment="CENTER" mnemonicParsing="false" text="Search" GridPane.columnIndex="1">
+                              <Button fx:id="partsSearchButton" alignment="CENTER" mnemonicParsing="false" onAction="#onActionSearchPartButton" text="Search" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -72,9 +72,9 @@
                         </TableView>
                         <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <Button fx:id="partAddButton" mnemonicParsing="false" text="Add" />
-                              <Button fx:id="partModifyButton" mnemonicParsing="false" text="Modify" />
-                              <Button fx:id="partDeleteButton" mnemonicParsing="false" text="Delete">
+                              <Button fx:id="partAddButton" mnemonicParsing="false" onAction="#onActionAddPartButton" text="Add" />
+                              <Button fx:id="partModifyButton" mnemonicParsing="false" onAction="#onActionModifyPartButton" text="Modify" />
+                              <Button fx:id="partDeleteButton" mnemonicParsing="false" onAction="#onActionDeletePartButton" text="Delete">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -113,7 +113,7 @@
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="productSearchButton" alignment="CENTER" mnemonicParsing="false" text="Search" GridPane.columnIndex="1">
+                              <Button fx:id="productSearchButton" alignment="CENTER" mnemonicParsing="false" onAction="#onActionSearchProductButton" text="Search" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -141,9 +141,9 @@
                         </TableView>
                         <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                            <children>
-                              <Button fx:id="addProductButton" mnemonicParsing="false" text="Add" />
-                              <Button fx:id="modifyProductButton" mnemonicParsing="false" text="Modify" />
-                              <Button fx:id="deleteProductButton" mnemonicParsing="false" text="Delete">
+                              <Button fx:id="addProductButton" mnemonicParsing="false" onAction="#onActionAddProductButton" text="Add" />
+                              <Button fx:id="modifyProductButton" mnemonicParsing="false" onAction="#onActionModifyProductButton" text="Modify" />
+                              <Button fx:id="deleteProductButton" mnemonicParsing="false" onAction="#onActionDeleteProductButton" text="Delete">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -165,7 +165,7 @@
             </Pane>
          </children>
       </HBox>
-      <Button fx:id="exitButton" layoutX="1316.0" layoutY="518.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="107.0" text="Exit">
+      <Button fx:id="exitButton" layoutX="1316.0" layoutY="518.0" mnemonicParsing="false" onAction="#OnActionExitButton" prefHeight="35.0" prefWidth="107.0" text="Exit">
          <font>
             <Font size="18.0" />
          </font>

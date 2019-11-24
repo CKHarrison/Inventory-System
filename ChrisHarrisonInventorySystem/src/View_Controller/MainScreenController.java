@@ -7,6 +7,7 @@ package View_Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -63,6 +64,58 @@ public class MainScreenController implements Initializable {
     private Button deleteProductButton;
     @FXML
     private Button exitButton;
+    
+    //Button Event Handlers
+    
+    //Part Handlers
+    
+    @FXML
+    void onActionSearchPartButton(ActionEvent event) {
+        System.out.println("Search Part Button Clicked");
+    }
+    
+    @FXML
+    void onActionAddPartButton(ActionEvent event) {
+        System.out.println("Add Part Button Clicked");
+    }
+    
+     @FXML
+    void onActionModifyPartButton(ActionEvent event) {
+         System.out.println("Modify Part Button Clicked");
+    }
+    
+     @FXML
+    void onActionDeletePartButton(ActionEvent event) {
+         System.out.println("Delete Button Clicked");
+    }
+    
+    //Product Button Handlers
+      @FXML
+    void onActionSearchProductButton(ActionEvent event) {
+          System.out.println("Search Product Button Clicked");
+    }
+
+    @FXML
+    void onActionAddProductButton(ActionEvent event) {
+        System.out.println("Add Product Button Clicked");
+    }
+    
+     @FXML
+    void onActionModifyProductButton(ActionEvent event) {
+         System.out.println("Modify Product Button Clicked");
+    }
+
+    @FXML
+    void onActionDeleteProductButton(ActionEvent event) {
+        System.out.println("Delete Product Button Clicked");
+    }
+
+   //Exit Button
+        @FXML
+    void OnActionExitButton(ActionEvent event) {
+            System.out.println("Exit Button Clicked");
+    }
+
 
     /**
      * Initializes the controller class.
