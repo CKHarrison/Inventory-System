@@ -133,7 +133,7 @@
                               <TableColumn fx:id="productIDTableColumn" prefWidth="166.75" text="Product ID" />
                               <TableColumn fx:id="productNameTableColumn" prefWidth="166.75" text="Product Name" />
                               <TableColumn fx:id="productInventoryLevelTableColumn" prefWidth="166.75" text="Inventory Level" />
-                              <TableColumn fx:id="ProductPricePerUnitTableColumn" prefWidth="166.75" text="Price Per Unit" />
+                              <TableColumn fx:id="productPricePerUnitTableColumn" prefWidth="166.75" text="Price Per Unit" />
                            </columns>
                            <VBox.margin>
                               <Insets />

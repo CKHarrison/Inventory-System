@@ -1,7 +1,6 @@
 
 package Model;
 
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,8 +10,8 @@ import javafx.fxml.FXML;
  * @author chris
  */
 public class Inventory {
-    @FXML private static ObservableList<Part> allParts;
-    @FXML private static ObservableList<Product> allProducts;
+    @FXML private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+    @FXML private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
 //    public Inventory(ObservableList<Part> allParts, ObservableList<Product> allProducts) {
 //        this.allParts = allParts;
