@@ -11,6 +11,8 @@ import Model.Product;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,6 +89,7 @@ public class MainScreenController implements Initializable {
     
     @FXML
     void onActionSearchPartButton(ActionEvent event) {
+        
         System.out.println("Search Part Button Clicked");
     }
     
@@ -107,6 +110,7 @@ public class MainScreenController implements Initializable {
     
      @FXML
     void onActionDeletePartButton(ActionEvent event) {
+        
          System.out.println("Delete Button Clicked");
     }
     
@@ -150,7 +154,15 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
-
+    //webinar search method. waiting to see how to implement it
+    public boolean search(int id) {
+        for(Part part : Inventory.getAllParts()) {
+            if(part.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Initializes the controller class.
@@ -175,6 +187,11 @@ public class MainScreenController implements Initializable {
         productInventoryLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPricePerUnitTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
+        if(search(7)) {
+            System.out.println("found it");
+        } else {
+            System.out.println("not found");
+        }
         
     }    
     

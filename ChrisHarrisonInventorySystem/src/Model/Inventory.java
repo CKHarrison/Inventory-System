@@ -62,7 +62,7 @@ public class Inventory {
     }
     
     //same search method as the lookupPart based on the product id
-    public static Product lookProduct(int productId) {
+    public static Product lookupProduct(int productId) {
         for(Product product : allProducts) {
             if(product.getId() == productId){
                 return product;
