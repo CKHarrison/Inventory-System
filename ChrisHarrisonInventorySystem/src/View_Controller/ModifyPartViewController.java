@@ -5,6 +5,8 @@
  */
 package View_Controller;
 
+import Model.Inventory;
+import Model.Part;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -99,13 +101,25 @@ public class ModifyPartViewController implements Initializable {
     }   
 
   
+    //update method
+    public boolean update(int id, Part part) {
+        int index = -1;
+        for(Part searchPart : Inventory.getAllParts()) {
+            index++;
+            if(searchPart.getId() == id) {
+                Inventory.getAllParts().set(index, part);
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
 }

@@ -1,6 +1,7 @@
 package View_Controller;
 
 import Model.Inventory;
+import Model.Part;
 import Model.Product;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ public class AddProductViewController {
     //Global variables
     Stage stage;
     Parent scene;
+    Product currentProduct;
     
     //FXML Buttons, Fields, and Labels
 
@@ -30,19 +32,19 @@ public class AddProductViewController {
     private TextField addProductTextField;
 
     @FXML
-    private TableView<Product> addProductTableView;
+    private TableView<Part> addProductTableView;
 
     @FXML
-    private TableColumn<Product, Integer> addPartIDTableColumn;
+    private TableColumn<Part, Integer> addPartIDTableColumn;
 
     @FXML
-    private TableColumn<Product, String> addPartNameTableColumn;
+    private TableColumn<Part, String> addPartNameTableColumn;
 
     @FXML
-    private TableColumn<Product, Integer> addPartInvLevelTableColumn;
+    private TableColumn<Part, Integer> addPartInvLevelTableColumn;
 
     @FXML
-    private TableColumn<Product, Double> addPartPriceTableColumn;
+    private TableColumn<Part, Double> addPartPriceTableColumn;
 
     @FXML
     private Button addProductAddButton;
@@ -96,11 +98,19 @@ public class AddProductViewController {
     
     @FXML
     void onActionSearchButton(ActionEvent event) {
+        String searchCriteria = addProductTextField.getText().trim();
+        for(Part part : Inventory.getAllParts()) {
+            if(Integer.toString(part.getId()).equals(searchCriteria) || 
+                    part.getName().toLowerCase().equals(searchCriteria)) {
+                addProductTableView.getSelectionModel().select(part);
+            }
+        }
         System.out.println("Search Button clicked");
     }
     
        @FXML
     void onActionAddButton(ActionEvent event) {
+//        currentProduct.addAssociatedPart(Inventory.);
            System.out.println("Add Button Clicked");
     }
 
@@ -125,16 +135,16 @@ public class AddProductViewController {
     @FXML 
     public void initialize() {
         //setting up addProductTableView
-        addProductTableView.setItems(Inventory.getAllProducts());
+        addProductTableView.setItems(Inventory.getAllParts());
         
-        //addProductTable
+        //parts Table
         addPartIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         addPartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         addPartInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addPartPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         //Setting up deleteTable
-        deleteProductTableView.setItems(Inventory.getAllProducts());
+//        deleteProductTableView.setItems(Product.getAllAssociatedPartsa)
         
         deletePartIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         deletePartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

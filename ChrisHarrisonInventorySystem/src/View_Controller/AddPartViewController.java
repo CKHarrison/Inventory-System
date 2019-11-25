@@ -88,12 +88,9 @@ public class AddPartViewController implements Initializable {
 
     @FXML
     void onActionSavedButton(ActionEvent event) throws IOException {
-        //creating a unique id for the part id starting at 0
+        //creating a unique id for the part id starting at 1 using global static variable
         uniqueId++;
-       
-        //just explanation purposes. Use a random number generator to assign id
-        //int id = Integer.parseInt(addPartIdTextField.getText());
-
+  
         String name = addPartNameTextField.getText().trim();
         int stock = Integer.parseInt(addPartInvTextField.getText());
         double price = Double.parseDouble(addPartPriceCostTextField.getText());

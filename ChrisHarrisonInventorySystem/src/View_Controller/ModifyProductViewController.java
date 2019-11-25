@@ -1,6 +1,7 @@
 package View_Controller;
 
 import Model.Inventory;
+import Model.Part;
 import Model.Product;
 import java.io.IOException;
 import java.net.URL;
@@ -30,19 +31,19 @@ public class ModifyProductViewController {
     private TextField modifyProductSearchTextField;
 
     @FXML
-    private TableView<Product> modifyProductAddTableView;
+    private TableView<Part> modifyProductAddTableView;
 
     @FXML
-    private TableColumn<Product, Integer> modifyProductAdddPartIDTableColumn;
+    private TableColumn<Part, Integer> modifyProductAdddPartIDTableColumn;
 
     @FXML
-    private TableColumn<Product, String> modifyProductAddPartNameTableColumn;
+    private TableColumn<Part, String> modifyProductAddPartNameTableColumn;
 
     @FXML
-    private TableColumn<Product, Integer> modifyProductAddInvLevelTableColumn;
+    private TableColumn<Part, Integer> modifyProductAddInvLevelTableColumn;
 
     @FXML
-    private TableColumn<Product, Double> modifyProductAddPriceTableColumn;
+    private TableColumn<Part, Double> modifyProductAddPriceTableColumn;
 
     @FXML
     private Button modifyProductAddButton;
@@ -93,7 +94,13 @@ public class ModifyProductViewController {
     
     @FXML
     void onActionSearchButton(ActionEvent event) {
-        System.out.println("Search Button Clicked");
+        String searchCriteria = modifyProductSearchTextField.getText().trim();
+        for(Part part : Inventory.getAllParts()) {
+            if(Integer.toString(part.getId()).equals(searchCriteria) || 
+                    part.getName().toLowerCase().equals(searchCriteria)) {
+                modifyProductAddTableView.getSelectionModel().select(part);
+            }
+        }
     }
     
     @FXML
@@ -124,7 +131,7 @@ public class ModifyProductViewController {
     @FXML
     public void initialize() {
         //Return a list of all products to the add Table View
-        modifyProductAddTableView.setItems(Inventory.getAllProducts());
+        modifyProductAddTableView.setItems(Inventory.getAllParts());
         
         //addProductTable
         modifyProductAdddPartIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));

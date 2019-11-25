@@ -9,6 +9,7 @@ import Model.Inventory;
 import Model.Part;
 import Model.Product;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -90,7 +91,13 @@ public class MainScreenController implements Initializable {
     @FXML
     void onActionSearchPartButton(ActionEvent event) {
         
-        System.out.println("Search Part Button Clicked");
+        String searchCriteria = partsSearchTextField.getText().trim();
+        for(Part part : Inventory.getAllParts()) {
+            if(Integer.toString(part.getId()).equals(searchCriteria) || 
+                    part.getName().toLowerCase().equals(searchCriteria)) {
+                partTableView.getSelectionModel().select(part);
+            }
+        }
     }
     
     @FXML
@@ -117,8 +124,13 @@ public class MainScreenController implements Initializable {
     //Product Button Handlers
       @FXML
     void onActionSearchProductButton(ActionEvent event) {
-       
-          System.out.println("Search Product Button Clicked");
+        String searchCriteria = productSearchField.getText().trim();
+        for(Product product : Inventory.getAllProducts()) {
+            if(Integer.toString(product.getId()).equals(searchCriteria)
+                    || product.getName().toLowerCase().equals(searchCriteria.toLowerCase())) {
+                productTabelView.getSelectionModel().select(product);
+            }
+        }
     }
 
     @FXML
@@ -154,16 +166,7 @@ public class MainScreenController implements Initializable {
         stage.show();
     }
 
-    //webinar search method. waiting to see how to implement it
-    public boolean search(int id) {
-        for(Part part : Inventory.getAllParts()) {
-            if(part.getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    
     /**
      * Initializes the controller class.
      */
@@ -187,11 +190,6 @@ public class MainScreenController implements Initializable {
         productInventoryLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPricePerUnitTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
-        if(search(7)) {
-            System.out.println("found it");
-        } else {
-            System.out.println("not found");
-        }
         
     }    
     
