@@ -34,7 +34,7 @@ public class AddPartViewController implements Initializable {
     //Global Variables
     Stage stage;
     Parent scene;
-    AtomicInteger generatedPartID = new AtomicInteger();
+    private static int uniqueId =0;
     
     //FXML Buttons, Fields, and Labels
     @FXML
@@ -89,9 +89,8 @@ public class AddPartViewController implements Initializable {
     @FXML
     void onActionSavedButton(ActionEvent event) throws IOException {
         //creating a unique id for the part id starting at 0
+        uniqueId++;
        
-        generatedPartID.incrementAndGet();
-        int uniqueID =  (int) Math.random();
         //just explanation purposes. Use a random number generator to assign id
         //int id = Integer.parseInt(addPartIdTextField.getText());
 
@@ -115,9 +114,9 @@ public class AddPartViewController implements Initializable {
         //saving the part object based on which button is selected
         
         if(inHouse) {
-            Inventory.addPart(new InHousePart(machineId, uniqueID, name, price, stock,  min,  max));
+            Inventory.addPart(new InHousePart(machineId, uniqueId, name, price, stock,  min,  max));
         } else {
-            Inventory.addPart(new OutSourcedPart(companyName, uniqueID, name, price, stock, min, max));
+            Inventory.addPart(new OutSourcedPart(companyName, uniqueId, name, price, stock, min, max));
         }
         
         returnToMainMenu(event);
