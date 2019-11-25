@@ -66,7 +66,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private TextField productSearchField;
     @FXML
-    private TableView<Product> productTabelView;
+    private TableView<Product> productTableView;
     @FXML
     private TableColumn<Product, Integer> productIDTableColumn;
     @FXML
@@ -117,6 +117,8 @@ public class MainScreenController implements Initializable {
     
      @FXML
     void onActionDeletePartButton(ActionEvent event) {
+        Part partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
+        Inventory.deletePart(partToBeDeleted);
         
          System.out.println("Delete Button Clicked");
     }
@@ -128,7 +130,7 @@ public class MainScreenController implements Initializable {
         for(Product product : Inventory.getAllProducts()) {
             if(Integer.toString(product.getId()).equals(searchCriteria)
                     || product.getName().toLowerCase().equals(searchCriteria.toLowerCase())) {
-                productTabelView.getSelectionModel().select(product);
+                productTableView.getSelectionModel().select(product);
             }
         }
     }
@@ -145,7 +147,8 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void onActionDeleteProductButton(ActionEvent event) {
-        System.out.println("Delete Product Button Clicked");
+        Product productToBeDeleted = productTableView.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(productToBeDeleted);
     }
 
    //Exit Button
@@ -182,7 +185,7 @@ public class MainScreenController implements Initializable {
         partPricePerUnitTableColumn.setCellValueFactory(new PropertyValueFactory("price"));
         
         //Displaying all data to the product table view
-        productTabelView.setItems(Inventory.getAllProducts());
+        productTableView.setItems(Inventory.getAllProducts());
         
         //setting data to the respective columns
         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));

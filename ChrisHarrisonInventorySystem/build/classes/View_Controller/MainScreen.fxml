@@ -128,7 +128,7 @@
                               </TextField>
                            </children>
                         </GridPane>
-                        <TableView fx:id="productTabelView" prefHeight="210.0" prefWidth="667.0">
+                        <TableView fx:id="productTableView" prefHeight="210.0" prefWidth="667.0">
                            <columns>
                               <TableColumn fx:id="productIDTableColumn" prefWidth="166.75" text="Product ID" />
                               <TableColumn fx:id="productNameTableColumn" prefWidth="166.75" text="Product Name" />
