@@ -155,7 +155,7 @@ public class MainScreenController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
+    @FXML
     public void initialize(URL url, ResourceBundle rb) {
         //return a list of all parts and setting it to the partTableView
         partTableView.setItems(Inventory.getAllParts());

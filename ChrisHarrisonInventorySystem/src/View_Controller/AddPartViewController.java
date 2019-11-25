@@ -5,9 +5,13 @@
  */
 package View_Controller;
 
+import Model.InHousePart;
+import Model.Inventory;
+import Model.OutSourcedPart;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +34,8 @@ public class AddPartViewController implements Initializable {
     //Global Variables
     Stage stage;
     Parent scene;
-
+    AtomicInteger generatedPartID = new AtomicInteger();
+    
     //FXML Buttons, Fields, and Labels
     @FXML
     private RadioButton addPartInHouseRadioButton;
@@ -45,7 +50,7 @@ public class AddPartViewController implements Initializable {
     @FXML
     private Label priceCostLabel;
     @FXML
-    private TextField addPartIdTextArea;
+    private TextField addPartIdTextField;
     @FXML
     private TextField addPartNameTextField;
     @FXML
@@ -71,21 +76,61 @@ public class AddPartViewController implements Initializable {
 
     @FXML
     void onActionInHouseButton(ActionEvent event) {
-        System.out.println("InHouse Button Clicked");
+        addPartCompanyNameOrMachineID.setText("Machine Id");
+        addPartCompanyNameOrMachineIDTextField.setPromptText("Please Enter A Number");
     }
 
     @FXML
     void onActionOutsourcedButton(ActionEvent event) {
-        System.out.println("OutSourcedButton Clicked");
+        addPartCompanyNameOrMachineID.setText("Company Name");
+        addPartCompanyNameOrMachineIDTextField.setPromptText("Please Enter Company Name");
     }
 
     @FXML
-    void onActionSavedButton(ActionEvent event) {
-        System.out.println("Save Button Clicked");
+    void onActionSavedButton(ActionEvent event) throws IOException {
+        //creating a unique id for the part id starting at 0
+       
+        generatedPartID.incrementAndGet();
+        int uniqueID =  (int) Math.random();
+        //just explanation purposes. Use a random number generator to assign id
+        //int id = Integer.parseInt(addPartIdTextField.getText());
+
+        String name = addPartNameTextField.getText().trim();
+        int stock = Integer.parseInt(addPartInvTextField.getText());
+        double price = Double.parseDouble(addPartPriceCostTextField.getText());
+        int max = Integer.parseInt(addPartMaxTextField.getText());
+        int min = Integer.parseInt(addPartMinTextField.getText());
+        int machineId = 0;
+        String companyName = null;
+        
+        boolean inHouse = addPartInHouseRadioButton.isSelected();
+        
+        //check to see if inHouse or outSourced is selected, if then accordingly set machineId or companyName
+        if(inHouse) {
+            machineId = Integer.parseInt(addPartCompanyNameOrMachineIDTextField.getText());
+        } else {
+            companyName = addPartCompanyNameOrMachineIDTextField.getText();
+        }
+        
+        //saving the part object based on which button is selected
+        
+        if(inHouse) {
+            Inventory.addPart(new InHousePart(machineId, uniqueID, name, price, stock,  min,  max));
+        } else {
+            Inventory.addPart(new OutSourcedPart(companyName, uniqueID, name, price, stock, min, max));
+        }
+        
+        returnToMainMenu(event);
+
     }
     
       @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
+          returnToMainMenu(event);
+    }
+    
+    //method to return to the main screen
+    public void returnToMainMenu(ActionEvent event) throws IOException {
         stage = (Stage) (((Button)event.getSource()).getScene().getWindow());
         scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
@@ -97,9 +142,13 @@ public class AddPartViewController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
+    @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //set InHouse radio button to default selected
+        addPartInHouseRadioButton.setSelected(true);
+         addPartCompanyNameOrMachineID.setText("Machine Id");
+        addPartCompanyNameOrMachineIDTextField.setPromptText("Please Enter A Number");
+        
     }    
     
 }

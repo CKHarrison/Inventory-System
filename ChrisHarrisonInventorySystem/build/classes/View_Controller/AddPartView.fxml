@@ -63,7 +63,7 @@
                   <Label fx:id="nameLabel" text="Name" GridPane.rowIndex="1" />
                   <Label fx:id="invLabel" text="Inv" GridPane.rowIndex="2" />
                   <Label fx:id="priceCostLabel" text="Price/Cost" GridPane.rowIndex="3" />
-                  <TextField fx:id="addPartIdTextArea" disable="true" editable="false" promptText="Auto Gen - Disabled" GridPane.columnIndex="1" />
+                  <TextField fx:id="addPartIdTextField" disable="true" editable="false" promptText="Auto Gen - Disabled" GridPane.columnIndex="1" />
                   <TextField fx:id="addPartNameTextField" promptText="Part Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="addPartInvTextField" promptText="Inv" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="addPartPriceCostTextField" promptText="Price/Cost" GridPane.columnIndex="1" GridPane.rowIndex="3" />
