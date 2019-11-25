@@ -1,5 +1,7 @@
 package View_Controller;
 
+import Model.Inventory;
+import Model.Product;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class AddProductViewController {
@@ -27,37 +30,37 @@ public class AddProductViewController {
     private TextField addProductTextField;
 
     @FXML
-    private TableView<?> addProductTableView;
+    private TableView<Product> addProductTableView;
 
     @FXML
-    private TableColumn<?, ?> addPartIDTableColumn;
+    private TableColumn<Product, Integer> addPartIDTableColumn;
 
     @FXML
-    private TableColumn<?, ?> addPartNameTableColumn;
+    private TableColumn<Product, String> addPartNameTableColumn;
 
     @FXML
-    private TableColumn<?, ?> addPartInvLevelTableColumn;
+    private TableColumn<Product, Integer> addPartInvLevelTableColumn;
 
     @FXML
-    private TableColumn<?, ?> addPartPriceTableColumn;
+    private TableColumn<Product, Double> addPartPriceTableColumn;
 
     @FXML
     private Button addProductAddButton;
 
     @FXML
-    private TableView<?> deleteProductTableView;
+    private TableView<Product> deleteProductTableView;
 
     @FXML
-    private TableColumn<?, ?> deletePartTableColumn;
+    private TableColumn<Product, Integer> deletePartIdTableColumn;
 
     @FXML
-    private TableColumn<?, ?> deletePartNameTableColumn;
+    private TableColumn<Product, String> deletePartNameTableColumn;
 
     @FXML
-    private TableColumn<?, ?> deleteInvLevelTableColumn;
+    private TableColumn<Product, Integer> deleteInvLevelTableColumn;
 
     @FXML
-    private TableColumn<?, ?> deletePriceTableColumn;
+    private TableColumn<Product, Double> deletePriceTableColumn;
 
     @FXML
     private Button deleteProductButton;
@@ -118,5 +121,26 @@ public class AddProductViewController {
         stage.setScene(new Scene(scene));
         stage.show();
     }  
+    
+    @FXML 
+    public void initialize() {
+        //setting up addProductTableView
+        addProductTableView.setItems(Inventory.getAllProducts());
+        
+        //addProductTable
+        addPartIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        addPartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        addPartInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        addPartPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        //Setting up deleteTable
+        deleteProductTableView.setItems(Inventory.getAllProducts());
+        
+        deletePartIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        deletePartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        deleteInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        deletePriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+    }
 
 }

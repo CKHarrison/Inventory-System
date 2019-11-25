@@ -1,6 +1,10 @@
 package View_Controller;
 
+import Model.Inventory;
+import Model.Product;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -25,40 +30,37 @@ public class ModifyProductViewController {
     private TextField modifyProductSearchTextField;
 
     @FXML
-    private TableView<?> modifyProductAddTableView;
+    private TableView<Product> modifyProductAddTableView;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAdddPartIDTableColumn;
+    private TableColumn<Product, Integer> modifyProductAdddPartIDTableColumn;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAddPartNameTableColumn;
+    private TableColumn<Product, String> modifyProductAddPartNameTableColumn;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAddInvLevelTableColumn;
+    private TableColumn<Product, Integer> modifyProductAddInvLevelTableColumn;
 
     @FXML
-    private TableColumn<?, ?> modifyProductAddPriceTableColumn;
+    private TableColumn<Product, Double> modifyProductAddPriceTableColumn;
 
     @FXML
     private Button modifyProductAddButton;
 
     @FXML
-    private GridPane modifyProductDeletTableView;
+    private TableView<Product> modifyProductDeleteTableView;
 
     @FXML
-    private TableView<?> modifyProductDeleteTableView;
+    private TableColumn<Product, Integer> modifyProductDeletePartIdTableColumn;
 
     @FXML
-    private TableColumn<?, ?> modifyProductDeletePartIdTableColumn;
+    private TableColumn<Product, String> modifyProductDeletePartNameTableColumn;
 
     @FXML
-    private TableColumn<?, ?> modifyProductDeletePartNameTableColumn;
+    private TableColumn<Product, Integer> modifyProductDeleteInvLevelTableColumn;
 
     @FXML
-    private TableColumn<?, ?> modifyProductDeleteInvLevelTableColumn;
-
-    @FXML
-    private TableColumn<?, ?> modifyProductDeletePriceTableColumn;
+    private TableColumn<Product, Double> modifyProductDeletePriceTableColumn;
 
     @FXML
     private Button modifyProductDeleteButton;
@@ -116,7 +118,27 @@ public class ModifyProductViewController {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
-   
+    
+    
+    
+    @FXML
+    public void initialize() {
+        //Return a list of all products to the add Table View
+        modifyProductAddTableView.setItems(Inventory.getAllProducts());
+        
+        //addProductTable
+        modifyProductAdddPartIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyProductAddPartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyProductAddInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyProductAddPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        //Setting up deleteTable
+        modifyProductDeleteTableView.setItems(Inventory.getAllProducts());
+        
+        modifyProductDeletePartIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyProductDeletePartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyProductDeleteInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyProductDeletePriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
 
 }
