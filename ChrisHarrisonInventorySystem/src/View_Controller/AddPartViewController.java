@@ -102,6 +102,49 @@ public class AddPartViewController implements Initializable {
             int min = Integer.parseInt(addPartMinTextField.getText());
             int machineId = 0;
             String companyName = null;
+            
+            //Checking validations
+            //inventory greater than max
+            if(stock > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot exceed max value");
+                alert.showAndWait();
+                return;
+            }
+            //inventory smaller than min
+            if(stock < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot be smaller than the min value");
+                alert.showAndWait();
+                return;                
+            }
+            
+            //checking if minimum or maximum is invalid
+            if(min > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The minimum level cannot be greater than the max value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(max < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The max value cannot be smaller than the min value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(price < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Price cannot be a negative number.");
+                alert.showAndWait();
+                return;                
+            }
 
             boolean inHouse = addPartInHouseRadioButton.isSelected();
 
@@ -125,7 +168,14 @@ public class AddPartViewController implements Initializable {
         } catch(NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
-            alert.setContentText("Please enter a valid value for each Text Field");
+            alert.setContentText("Please enter a valid value for each Text Field\n" +
+                    "\n" +
+                    "The name must be a string.\n" +
+                    "The inventory level must be a valid integer 0 or above.\n" +
+                    "The price must be a non-negative number.\n" +
+                    "The stock must be a non-negative Integer\n" +
+                    "The machine ID must be an integer\n" +
+                    "The company name must be a string");
             alert.showAndWait();
             
 //            System.out.println("Please enter valid values in text fields!");

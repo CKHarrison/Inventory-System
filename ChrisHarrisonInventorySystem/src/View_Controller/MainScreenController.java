@@ -153,9 +153,7 @@ public class MainScreenController implements Initializable {
             partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
             Inventory.deletePart(partToBeDeleted);
             }  
-         }    
-        
-        
+         }  
     }
     
     //Product Button Handlers
@@ -202,13 +200,6 @@ public class MainScreenController implements Initializable {
             alert.setContentText("Please select a product to modify.");
             alert.showAndWait();
         }
-        
-        
-        
-        
-        
-        //passing a reference to the selected data to the modifyProduct Screen
-//         switchScene(event, "ModifyProductView");
     }
 
     @FXML
