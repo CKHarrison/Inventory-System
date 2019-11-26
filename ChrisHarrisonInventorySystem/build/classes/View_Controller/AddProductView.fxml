@@ -25,7 +25,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="31.0" prefWidth="215.0" text="Add Product">
+            <Label prefHeight="31.0" prefWidth="215.0" text="Add Product" textFill="#4d64da">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>

@@ -20,23 +20,23 @@
          <children>
             <GridPane alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="441.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="177.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="117.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Modify Part">
+                  <Label text="Modify Part" textFill="#4d64da">
                      <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <RadioButton fx:id="modifyPartInHouseRadioButton" mnemonicParsing="false" onAction="#onActionInhouseButton" text="In-House" GridPane.columnIndex="1">
+                  <RadioButton fx:id="modifyPartInHouseRadioButton" mnemonicParsing="false" onAction="#onActionInhouseButton" prefWidth="90.0" text="In-House" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>

@@ -9,7 +9,6 @@ import Model.Inventory;
 import Model.Part;
 import Model.Product;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -132,7 +131,7 @@ public class MainScreenController implements Initializable {
         } catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Occured");
-            alert.setContentText("Please select a part to modify");
+            alert.setContentText("Please select a part to modify.");
             alert.showAndWait();
         }
     }
@@ -145,10 +144,10 @@ public class MainScreenController implements Initializable {
          if(partToBeDeleted == null) {
              Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Occured");
-            alert.setContentText("Please select a part to delete");
+            alert.setContentText("Please select a part to delete.");
             alert.showAndWait();
          } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure You Want To Delete This Part?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this part?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) {
             partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
@@ -200,7 +199,7 @@ public class MainScreenController implements Initializable {
         } catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Occured");
-            alert.setContentText("Please select a product to modify");
+            alert.setContentText("Please select a product to modify.");
             alert.showAndWait();
         }
         
@@ -218,10 +217,10 @@ public class MainScreenController implements Initializable {
         if(productToBeDeleted == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Occured");
-            alert.setContentText("Please select a product to delete");
+            alert.setContentText("Please select a product to delete.");
             alert.showAndWait();
         } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure You Want To Delete This Part?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this product?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) {
                 Inventory.deleteProduct(productToBeDeleted);
@@ -233,7 +232,7 @@ public class MainScreenController implements Initializable {
    //Exit Button
         @FXML
     void OnActionExitButton(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure You Want To Exit?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             System.exit(0);

@@ -28,9 +28,9 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Add Part">
+                  <Label text="Add Part" textFill="#4d64da">
                      <font>
-                        <Font name="System Bold" size="20.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="10.0" />
