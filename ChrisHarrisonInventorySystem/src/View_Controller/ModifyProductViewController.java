@@ -129,7 +129,7 @@ public class ModifyProductViewController {
     
     
     @FXML
-    public void initialize() {
+    public void initialize(URL url, ResourceBundle rb) {
         //Return a list of all products to the add Table View
         modifyProductAddTableView.setItems(Inventory.getAllParts());
         

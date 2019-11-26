@@ -63,7 +63,7 @@
                   <Label fx:id="nameLabel" text="Name" GridPane.rowIndex="1" />
                   <Label fx:id="invLabel" text="Inv" GridPane.rowIndex="2" />
                   <Label fx:id="priceCostLabel" text="Price/Cost" GridPane.rowIndex="3" />
-                  <TextField fx:id="modifyPartTextField" disable="true" GridPane.columnIndex="1" />
+                  <TextField fx:id="modifyPartIdTextField" GridPane.columnIndex="1" />
                   <TextField fx:id="modifyPartNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="modifyPartInvTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="modifyPartPriceCostTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
