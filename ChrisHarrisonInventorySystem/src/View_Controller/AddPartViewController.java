@@ -10,6 +10,7 @@ import Model.Inventory;
 import Model.OutSourcedPart;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +18,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -89,39 +92,59 @@ public class AddPartViewController implements Initializable {
     void onActionSavedButton(ActionEvent event) throws IOException {
         //creating a unique id for the part id starting at 1 using global static variable
         uniqueId++;
+        
+        try {
+            
+             String name = addPartNameTextField.getText().trim();
+            int stock = Integer.parseInt(addPartInvTextField.getText());
+            double price = Double.parseDouble(addPartPriceCostTextField.getText());
+            int max = Integer.parseInt(addPartMaxTextField.getText());
+            int min = Integer.parseInt(addPartMinTextField.getText());
+            int machineId = 0;
+            String companyName = null;
+
+            boolean inHouse = addPartInHouseRadioButton.isSelected();
+
+            //check to see if inHouse or outSourced is selected, if then accordingly set machineId or companyName
+            if(inHouse) {
+                machineId = Integer.parseInt(addPartCompanyNameOrMachineIDTextField.getText());
+            } else {
+                companyName = addPartCompanyNameOrMachineIDTextField.getText();
+            }
+
+            //saving the part object based on which button is selected
+
+            if(inHouse) {
+                Inventory.addPart(new InHousePart(machineId, uniqueId, name, price, stock,  min,  max));
+            } else {
+                Inventory.addPart(new OutSourcedPart(companyName, uniqueId, name, price, stock, min, max));
+            }
+
+            returnToMainMenu(event);
+            
+        } catch(NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please enter a valid value for each Text Field");
+            alert.showAndWait();
+            
+//            System.out.println("Please enter valid values in text fields!");
+//            System.out.println("Exception: " + e);
+//            System.out.println("Exception: " + e.getMessage());
+        }
   
-        String name = addPartNameTextField.getText().trim();
-        int stock = Integer.parseInt(addPartInvTextField.getText());
-        double price = Double.parseDouble(addPartPriceCostTextField.getText());
-        int max = Integer.parseInt(addPartMaxTextField.getText());
-        int min = Integer.parseInt(addPartMinTextField.getText());
-        int machineId = 0;
-        String companyName = null;
-        
-        boolean inHouse = addPartInHouseRadioButton.isSelected();
-        
-        //check to see if inHouse or outSourced is selected, if then accordingly set machineId or companyName
-        if(inHouse) {
-            machineId = Integer.parseInt(addPartCompanyNameOrMachineIDTextField.getText());
-        } else {
-            companyName = addPartCompanyNameOrMachineIDTextField.getText();
-        }
-        
-        //saving the part object based on which button is selected
-        
-        if(inHouse) {
-            Inventory.addPart(new InHousePart(machineId, uniqueId, name, price, stock,  min,  max));
-        } else {
-            Inventory.addPart(new OutSourcedPart(companyName, uniqueId, name, price, stock, min, max));
-        }
-        
-        returnToMainMenu(event);
+       
 
     }
     
       @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
-          returnToMainMenu(event);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "The Part will not be saved, do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            returnToMainMenu(event);
+        }
+        
     }
     
     //method to return to the main screen

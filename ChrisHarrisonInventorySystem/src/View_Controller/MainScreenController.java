@@ -9,7 +9,9 @@ import Model.Inventory;
 import Model.Part;
 import Model.Product;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +19,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -100,8 +104,6 @@ public class MainScreenController implements Initializable {
     void onActionAddPartButton(ActionEvent event) throws IOException {
 
         switchScene(event, "AddPartView");
-        
-        System.out.println("Add Part Button Clicked");
     }
     
     
@@ -109,7 +111,9 @@ public class MainScreenController implements Initializable {
      @FXML
     void onActionModifyPartButton(ActionEvent event) throws IOException {
         
-        FXMLLoader loader = new FXMLLoader();
+        try {
+            
+            FXMLLoader loader = new FXMLLoader();
         //setting location to ModifyPartView
         loader.setLocation(getClass().getResource("/View_Controller/ModifyPartView.fxml"));
         loader.load();
@@ -124,14 +128,35 @@ public class MainScreenController implements Initializable {
         Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
+            
+        } catch(Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setContentText("Please select a part to modify");
+            alert.showAndWait();
+        }
     }
     
      @FXML
     void onActionDeletePartButton(ActionEvent event) {
-        Part partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(partToBeDeleted);
         
-         System.out.println("Delete Button Clicked");
+        
+         Part partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
+         if(partToBeDeleted == null) {
+             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setContentText("Please select a part to delete");
+            alert.showAndWait();
+         } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure You Want To Delete This Part?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK) {
+            partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
+            Inventory.deletePart(partToBeDeleted);
+            }  
+         }    
+        
+        
     }
     
     //Product Button Handlers
@@ -154,22 +179,32 @@ public class MainScreenController implements Initializable {
      @FXML
     void onActionModifyProductButton(ActionEvent event) throws IOException {
         
-        FXMLLoader loader = new FXMLLoader();
-        //setting location to ModifyPartView
-        loader.setLocation(getClass().getResource("/View_Controller/ModifyProductView.fxml"));
-        loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            //setting location to ModifyPartView
+            loader.setLocation(getClass().getResource("/View_Controller/ModifyProductView.fxml"));
+            loader.load();
+
+            ModifyProductViewController modifyProductVC = loader.getController();
+            Product productToSend = productTableView.getSelectionModel().getSelectedItem();
+
+            //send part to ModifyPartViewController
+            modifyProductVC.sendProduct(productToSend);
+
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+            
+        } catch(Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setContentText("Please select a product to modify");
+            alert.showAndWait();
+        }
         
-        ModifyProductViewController modifyProductVC = loader.getController();
-        Product productToSend = productTableView.getSelectionModel().getSelectedItem();
         
-        //send part to ModifyPartViewController
-        modifyProductVC.sendProduct(productToSend);
-        
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        
-        Parent scene = loader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
         
         
         
@@ -180,13 +215,30 @@ public class MainScreenController implements Initializable {
     @FXML
     void onActionDeleteProductButton(ActionEvent event) {
         Product productToBeDeleted = productTableView.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(productToBeDeleted);
+        if(productToBeDeleted == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occured");
+            alert.setContentText("Please select a product to delete");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure You Want To Delete This Part?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK) {
+                Inventory.deleteProduct(productToBeDeleted);
+            }
+        
+        }
     }
 
    //Exit Button
         @FXML
     void OnActionExitButton(ActionEvent event) {
-        System.exit(0);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure You Want To Exit?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            System.exit(0);
+        }        
+        
     }
     
         //Switch Scene method 
