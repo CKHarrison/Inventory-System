@@ -106,25 +106,38 @@ public class ModifyProductViewController {
     
     @FXML
     void onActionAddButton(ActionEvent event) {
-        System.out.println("Add Button Clicked");
+        Part newPart = modifyPartAddTableView.getSelectionModel().getSelectedItem();
+        productToModify.addAssociatedPart(newPart);
     }
 
     @FXML
     void onActionDeleteButton(ActionEvent event) {
-        System.out.println("Delete Button Clicked");
+        Part partToDelete = modifyAssociatedPartsTableView.getSelectionModel().getSelectedItem();
+        productToModify.deleteAssociatedPart(partToDelete);
     }
 
     @FXML
-    void onActionSaveButton(ActionEvent event) {
-        System.out.println("Save Button Clicked");
+    void onActionSaveButton(ActionEvent event) throws IOException {
+        //setting all of the info to the product
+        productToModify.setName(modifyProductNameTextField.getText().trim());
+        productToModify.setPrice(Double.parseDouble(modifyProductPriceTextField.getText()));
+        productToModify.setStock(Integer.parseInt(modifyProductInvTextField.getText()));
+        productToModify.setMax(Integer.parseInt(modifyProductMaxTextField.getText()));
+        productToModify.setMin(Integer.parseInt(modifyProductMinTextField.getText()));
+        
+        //looking up the old product based on id
+        Product oldProduct = Inventory.lookupProduct(productToModify.getId());
+        //finding the index of the old product in the inventory list
+        int index = Inventory.getAllProducts().indexOf(oldProduct);
+        //updating to the new product 
+        Inventory.updateProduct(index, productToModify);
+        
+        showMainScreen(event);
     }
     
     @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
-        stage = stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        showMainScreen(event);
     }
     
     public void sendProduct(Product sentProduct) {
@@ -145,6 +158,13 @@ public class ModifyProductViewController {
         modifyAssociatedPartsNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         modifyAssociatedPartsInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modifyAssociatedPartsPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
+    
+     public void showMainScreen(ActionEvent event) throws IOException{
+         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
     
     

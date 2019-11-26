@@ -59,6 +59,7 @@ public class ChrisHarrisonInventorySystem extends Application {
         product3.addAssociatedPart(part3InHousePart);
         product3.addAssociatedPart(part3OutSourcedPart);
         
+        
         Inventory.addProduct(product1);
         Inventory.addProduct(product2);
         Inventory.addProduct(product3);
