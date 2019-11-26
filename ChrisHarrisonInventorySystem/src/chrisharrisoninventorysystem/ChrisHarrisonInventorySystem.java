@@ -50,8 +50,14 @@ public class ChrisHarrisonInventorySystem extends Application {
         Inventory.addPart(part3OutSourcedPart);
         
         Product product1 = new Product(1, "Car", 1500.24, 3, 0, 5);
+        product1.addAssociatedPart(part1InHousePart);
+        product1.addAssociatedPart(part2InHousePart);
         Product product2 = new Product(2, "Broom", 10.24, 3, 1, 7);
+        product2.addAssociatedPart(part1OutSourcedPart);
+        product2.addAssociatedPart(part2InHousePart);
         Product product3 = new Product(3, "Water", 0.99, 111, 50, 5000);
+        product3.addAssociatedPart(part3InHousePart);
+        product3.addAssociatedPart(part3OutSourcedPart);
         
         Inventory.addProduct(product1);
         Inventory.addProduct(product2);

@@ -161,7 +161,7 @@ public class MainScreenController implements Initializable {
         
         ModifyProductViewController modifyProductVC = loader.getController();
         Product productToSend = productTableView.getSelectionModel().getSelectedItem();
-         System.out.println("Sending product: " + productToSend.getName());
+        
         //send part to ModifyPartViewController
         modifyProductVC.sendProduct(productToSend);
         

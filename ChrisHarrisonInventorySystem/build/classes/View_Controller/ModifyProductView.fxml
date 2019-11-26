@@ -63,7 +63,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="modifyProductIdTextField" disable="true" GridPane.columnIndex="1" />
+                  <TextField fx:id="modifyProductIdTextField" GridPane.columnIndex="1" />
                   <TextField fx:id="modifyProductNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>

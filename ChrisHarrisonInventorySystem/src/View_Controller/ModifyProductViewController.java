@@ -129,15 +129,30 @@ public class ModifyProductViewController {
     
     public void sendProduct(Product sentProduct) {
         productToModify = sentProduct;
+        
+        //populating the fields with the info from the product
+        modifyProductIdTextField.setText(Integer.toString(sentProduct.getId()));
+        modifyProductNameTextField.setText(sentProduct.getName());
+        modifyProductMaxTextField.setText(Integer.toString(sentProduct.getMax()));
+        modifyProductPriceTextField.setText(Double.toString(sentProduct.getPrice()));
+        modifyProductInvTextField.setText(Integer.toString(sentProduct.getStock()));
+        modifyProductMinTextField.setText(Integer.toString(sentProduct.getMin()));     
+        
+        //setting up the table view to see all of the associated products
+         modifyAssociatedPartsTableView.setItems(productToModify.getAllAssociatedParts());
+        
+        modifyAssociatedPartsIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyAssociatedPartsNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyAssociatedPartsInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyAssociatedPartsPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
     
     
     @FXML
     public void initialize(){
-        
-//        System.out.println(productToModify.getId());
-        
+        //disable the id field
+        modifyProductIdTextField.setDisable(true);
         
         //Return a list of all products to the add Table View
         modifyPartAddTableView.setItems(Inventory.getAllParts());
@@ -148,14 +163,7 @@ public class ModifyProductViewController {
         modifyPartAddInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modifyPartAddPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
-        //Setting up deleteTable
-//        modifyAssociatedPartsTableView.setItems(productToModify.getAllAssociatedParts());
-        modifyAssociatedPartsTableView.setItems(Inventory.getAllParts());
-        
-        modifyAssociatedPartsIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        modifyAssociatedPartsNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        modifyAssociatedPartsInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        modifyAssociatedPartsPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+       
     }
 
 }
