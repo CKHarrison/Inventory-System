@@ -123,12 +123,7 @@ public class MainScreenController implements Initializable {
         
         Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
-        //waits for code to be executed before showing the screen
         stage.show();
-       
-                    
-        
-//         switchScene(event, "ModifyPartView");
     }
     
      @FXML
@@ -158,8 +153,28 @@ public class MainScreenController implements Initializable {
     
      @FXML
     void onActionModifyProductButton(ActionEvent event) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader();
+        //setting location to ModifyPartView
+        loader.setLocation(getClass().getResource("/View_Controller/ModifyProductView.fxml"));
+        loader.load();
+        
+        ModifyProductViewController modifyProductVC = loader.getController();
+        Product productToSend = productTableView.getSelectionModel().getSelectedItem();
+         System.out.println("Sending product: " + productToSend.getName());
+        //send part to ModifyPartViewController
+        modifyProductVC.sendProduct(productToSend);
+        
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.show();
+        
+        
+        
         //passing a reference to the selected data to the modifyProduct Screen
-         switchScene(event, "ModifyProductView");
+//         switchScene(event, "ModifyProductView");
     }
 
     @FXML

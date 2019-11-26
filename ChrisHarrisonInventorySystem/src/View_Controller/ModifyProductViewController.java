@@ -20,50 +20,52 @@ import javafx.stage.Stage;
 
 public class ModifyProductViewController {
     //Global Variables
-    Stage stage;
-    Parent scene;
+    private Stage stage;
+    private Parent scene;
+    private Product productToModify;
+    private int id;
 
     @FXML
-    private Button modifyProductSearchButton;
+    private Button modifyProductPartSearchButton;
 
     @FXML
-    private TextField modifyProductSearchTextField;
+    private TextField modifyProductPartSearchTextField;
 
     @FXML
-    private TableView<Part> modifyProductAddTableView;
+    private TableView<Part> modifyPartAddTableView;
 
     @FXML
-    private TableColumn<Part, Integer> modifyProductAdddPartIDTableColumn;
+    private TableColumn<Part, Integer> modifyPartAddPartIDTableColumn;
 
     @FXML
-    private TableColumn<Part, String> modifyProductAddPartNameTableColumn;
+    private TableColumn<Part, String> modifyPartAddPartNameTableColumn;
 
     @FXML
-    private TableColumn<Part, Integer> modifyProductAddInvLevelTableColumn;
+    private TableColumn<Part, Integer> modifyPartAddInvLevelTableColumn;
 
     @FXML
-    private TableColumn<Part, Double> modifyProductAddPriceTableColumn;
+    private TableColumn<Part, Double> modifyPartAddPriceTableColumn;
 
     @FXML
-    private Button modifyProductAddButton;
+    private Button modifyProductPartAddButton;
 
     @FXML
-    private TableView<Product> modifyProductDeleteTableView;
+    private TableView<Part> modifyAssociatedPartsTableView;
 
     @FXML
-    private TableColumn<Product, Integer> modifyProductDeletePartIdTableColumn;
+    private TableColumn<Part, Integer> modifyAssociatedPartsIdTableColumn;
 
     @FXML
-    private TableColumn<Product, String> modifyProductDeletePartNameTableColumn;
+    private TableColumn<Part, String> modifyAssociatedPartsNameTableColumn;
 
     @FXML
-    private TableColumn<Product, Integer> modifyProductDeleteInvLevelTableColumn;
+    private TableColumn<Part, Integer> modifyAssociatedPartsInvLevelTableColumn;
 
     @FXML
-    private TableColumn<Product, Double> modifyProductDeletePriceTableColumn;
+    private TableColumn<Part, Double> modifyAssociatedPartsPriceTableColumn;
 
     @FXML
-    private Button modifyProductDeleteButton;
+    private Button modifyAssociatedPartsDeleteButton;
 
     @FXML
     private Button modifyProductSaveButton;
@@ -93,11 +95,11 @@ public class ModifyProductViewController {
     
     @FXML
     void onActionSearchButton(ActionEvent event) {
-        String searchCriteria = modifyProductSearchTextField.getText().trim();
+        String searchCriteria = modifyProductPartSearchTextField.getText().trim();
         for(Part part : Inventory.getAllParts()) {
             if(Integer.toString(part.getId()).equals(searchCriteria) || 
                     part.getName().toLowerCase().equals(searchCriteria)) {
-                modifyProductAddTableView.getSelectionModel().select(part);
+                modifyPartAddTableView.getSelectionModel().select(part);
             }
         }
     }
@@ -125,26 +127,35 @@ public class ModifyProductViewController {
         stage.show();
     }
     
+    public void sendProduct(Product sentProduct) {
+        productToModify = sentProduct;
+    }
+    
     
     
     @FXML
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(){
+        
+//        System.out.println(productToModify.getId());
+        
+        
         //Return a list of all products to the add Table View
-        modifyProductAddTableView.setItems(Inventory.getAllParts());
+        modifyPartAddTableView.setItems(Inventory.getAllParts());
         
         //addProductTable
-        modifyProductAdddPartIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        modifyProductAddPartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        modifyProductAddInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        modifyProductAddPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        modifyPartAddPartIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyPartAddPartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyPartAddInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyPartAddPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         //Setting up deleteTable
-        modifyProductDeleteTableView.setItems(Inventory.getAllProducts());
+//        modifyAssociatedPartsTableView.setItems(productToModify.getAllAssociatedParts());
+        modifyAssociatedPartsTableView.setItems(Inventory.getAllParts());
         
-        modifyProductDeletePartIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        modifyProductDeletePartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        modifyProductDeleteInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        modifyProductDeletePriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        modifyAssociatedPartsIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyAssociatedPartsNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyAssociatedPartsInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyAssociatedPartsPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
 }

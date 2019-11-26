@@ -139,16 +139,16 @@ public class AddProductViewController {
         currentProduct.setMax(Integer.parseInt(addProductMaxTextField.getText()));
         currentProduct.setMin(Integer.parseInt(addProductMinTextField.getText()));
         Inventory.addProduct(currentProduct);
-        switchToMainScren(event);
+        switchToMainScreen(event);
         System.out.println("Save Button Clicked");
     }
     
       @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
-          switchToMainScren(event);
+          switchToMainScreen(event);
     }  
     
-    public void switchToMainScren(ActionEvent event) throws IOException {
+    public void switchToMainScreen(ActionEvent event) throws IOException {
         stage = stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
         stage.setScene(new Scene(scene));

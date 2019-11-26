@@ -4,7 +4,6 @@ package chrisharrisoninventorysystem;
 import Model.InHousePart;
 import Model.Inventory;
 import Model.OutSourcedPart;
-import Model.Part;
 import Model.Product;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
