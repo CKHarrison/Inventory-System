@@ -33,7 +33,7 @@ public class AddPartViewController implements Initializable {
     //Global Variables
     private Stage stage;
     private Parent scene;
-    private static int uniqueId =0;
+    private static int uniqueId =Inventory.getAllParts().size();
     
     //FXML Buttons, Fields, and Labels
     @FXML

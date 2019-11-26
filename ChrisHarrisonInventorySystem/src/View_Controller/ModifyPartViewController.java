@@ -34,8 +34,7 @@ public class ModifyPartViewController implements Initializable {
     
     private Stage stage;
     private Parent scene;
-//    private static Part partToBeModified;
-    private Part modifiedPart;
+    private int id;
     
     //FX:ids
 
@@ -82,6 +81,7 @@ public class ModifyPartViewController implements Initializable {
     @FXML
     void onActionInhouseButton(ActionEvent event) {
         modifyPartCompanyNameOrMachineIDLabel.setText("Machine Id");
+        modifyPartCompanyNameOrMachineIDTextField.clear();
         modifyPartCompanyNameOrMachineIDTextField.setPromptText("Please Enter A Number");
         
     }
@@ -89,25 +89,62 @@ public class ModifyPartViewController implements Initializable {
     @FXML
     void onActionOutsourcedButton(ActionEvent event) {
         modifyPartCompanyNameOrMachineIDLabel.setText("Company Name");
+        modifyPartCompanyNameOrMachineIDTextField.clear();
         modifyPartCompanyNameOrMachineIDTextField.setPromptText("Please Enter Company Name");
     }
     
     //Save and Cancel Buttons
     
     @FXML
-    void onActionSaveButton(ActionEvent event) {
-        System.out.println("Save Button Clicked");
+    void onActionSaveButton(ActionEvent event) throws IOException {
+        
+        //ID comes from the recieved part id
+        
+        String name = modifyPartNameTextField.getText().trim();
+        int stock = Integer.parseInt(modifyPartInvTextField.getText());
+        double price = Double.parseDouble(modifyPartPriceCostTextField.getText());
+        int max = Integer.parseInt(modifyPartMaxTextField.getText());
+        int min = Integer.parseInt(modifyPartMinTextField.getText());
+        int machineId = 0;
+        String companyName = null;
+        
+        boolean inHouse = modifyPartInHouseRadioButton.isSelected();
+        
+        //check to see if inHouse or outSourced is selected, if then accordingly set machineId or companyName
+        if(inHouse) {
+            machineId = Integer.parseInt(modifyPartCompanyNameOrMachineIDTextField.getText());
+        } else {
+            companyName = modifyPartCompanyNameOrMachineIDTextField.getText();
+        }
+        
+        //updating the part object based on which button is selected
+        
+        if(inHouse) {
+            //new updated part to store in the inventory
+            Part modifiedPart = new InHousePart(machineId, id, name, price, stock, min, max);
+            //first lookup the old part based on id
+            Part oldPart = Inventory.lookupPart(modifiedPart.getId());
+            //find the index of that part in the inventory array
+            int index = Inventory.getAllParts().indexOf(oldPart);
+            //update part in the inventory
+            Inventory.updatePart(index, modifiedPart);
+        } else {
+            Part modifiedPart = new OutSourcedPart(companyName, id, name, price, stock, min, max);
+            Part oldPart = Inventory.lookupPart(id);
+            int index = Inventory.getAllParts().indexOf(oldPart);
+            Inventory.updatePart(index, modifiedPart);
+        }
+        //back to main window
+        showMainScreen(event);
     }
     
     @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        showMainScreen(event);
     }   
 
     public void sendPart(Part recievedPart) {
+        id = recievedPart.getId();
         modifyPartIdTextField.setText(Integer.toString(recievedPart.getId()));
         modifyPartNameTextField.setText(recievedPart.getName());
         modifyPartInvTextField.setText(Integer.toString(recievedPart.getStock()));
@@ -129,20 +166,13 @@ public class ModifyPartViewController implements Initializable {
         }
         
         
-        
     }
-  
-    //update method
-    public boolean update(int id, Part part) {
-        int index = -1;
-        for(Part searchPart : Inventory.getAllParts()) {
-            index++;
-            if(searchPart.getId() == id) {
-                Inventory.getAllParts().set(index, part);
-                return true;
-            }
-        }
-        return false;
+    
+    public void showMainScreen(ActionEvent event) throws IOException{
+         stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     /**

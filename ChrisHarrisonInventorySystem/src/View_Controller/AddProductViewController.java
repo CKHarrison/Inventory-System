@@ -22,7 +22,7 @@ public class AddProductViewController {
     private Stage stage;
     private Parent scene;
     private Product currentProduct = new Product(0, "", 0, 0, 0, 0);
-     private static int uniqueId =0;
+     private static int uniqueId =Inventory.getAllProducts().size();
     
     
     //FXML Buttons, Fields, and Labels
