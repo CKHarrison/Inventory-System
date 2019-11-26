@@ -19,9 +19,11 @@ import javafx.stage.Stage;
 
 public class AddProductViewController {
     //Global variables
-    Stage stage;
-    Parent scene;
-    Product currentProduct;
+    private Stage stage;
+    private Parent scene;
+    private Product currentProduct = new Product(0, "", 0, 0, 0, 0);
+     private static int uniqueId =0;
+    
     
     //FXML Buttons, Fields, and Labels
 
@@ -32,7 +34,7 @@ public class AddProductViewController {
     private TextField addProductTextField;
 
     @FXML
-    private TableView<Part> addProductTableView;
+    private TableView<Part> addPartTableView;
 
     @FXML
     private TableColumn<Part, Integer> addPartIDTableColumn;
@@ -50,22 +52,22 @@ public class AddProductViewController {
     private Button addProductAddButton;
 
     @FXML
-    private TableView<Product> deleteProductTableView;
+    private TableView<Part> associatedPartsTableView;
 
     @FXML
-    private TableColumn<Product, Integer> deletePartIdTableColumn;
+    private TableColumn<Part, Integer> associatedPartsIdTableColumn;
 
     @FXML
-    private TableColumn<Product, String> deletePartNameTableColumn;
+    private TableColumn<Part, String> associatedPartsNameTableColumn;
 
     @FXML
-    private TableColumn<Product, Integer> deleteInvLevelTableColumn;
+    private TableColumn<Part, Integer> associatedPartsInvLevelTableColumn;
 
     @FXML
-    private TableColumn<Product, Double> deletePriceTableColumn;
+    private TableColumn<Part, Double> associatedPartsPriceTableColumn;
 
     @FXML
-    private Button deleteProductButton;
+    private Button deletePartButton;
 
     @FXML
     private Button saveButton;
@@ -102,7 +104,7 @@ public class AddProductViewController {
         for(Part part : Inventory.getAllParts()) {
             if(Integer.toString(part.getId()).equals(searchCriteria) || 
                     part.getName().toLowerCase().equals(searchCriteria)) {
-                addProductTableView.getSelectionModel().select(part);
+                addPartTableView.getSelectionModel().select(part);
             }
         }
         System.out.println("Search Button clicked");
@@ -110,32 +112,54 @@ public class AddProductViewController {
     
        @FXML
     void onActionAddButton(ActionEvent event) {
-//        currentProduct.addAssociatedPart(Inventory.);
+        //setting up generic part that is selected when a part on the table is selected
+        Part newAssociatedPart = addPartTableView.getSelectionModel().getSelectedItem();
+        //adding generic part to currentPart associatedParts list
+        currentProduct.addAssociatedPart(newAssociatedPart);
+        
            System.out.println("Add Button Clicked");
     }
 
     @FXML
     void onActionDeleteButton(ActionEvent event) {
+        Part partToBeDeleted = associatedPartsTableView.getSelectionModel().getSelectedItem();
+        currentProduct.deleteAssociatedPart(partToBeDeleted);
         System.out.println("Delete Button Clicked");
     }
 
     @FXML
-    void onActionSaveButton(ActionEvent event) {
+    void onActionSaveButton(ActionEvent event) throws IOException {
+        //generating unique id
+        uniqueId++;
+        
+        currentProduct.setId(uniqueId);
+        currentProduct.setName(addProductNameTextField.getText().trim());
+        currentProduct.setPrice(Double.parseDouble(addProductPriceTextField.getText()));
+        currentProduct.setStock(Integer.parseInt(addProductInvTextField.getText()));
+        currentProduct.setMax(Integer.parseInt(addProductMaxTextField.getText()));
+        currentProduct.setMin(Integer.parseInt(addProductMinTextField.getText()));
+        Inventory.addProduct(currentProduct);
+        switchToMainScren(event);
         System.out.println("Save Button Clicked");
     }
     
       @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
+          switchToMainScren(event);
+    }  
+    
+    public void switchToMainScren(ActionEvent event) throws IOException {
         stage = stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-    }  
+    }
     
     @FXML 
     public void initialize() {
         //setting up addProductTableView
-        addProductTableView.setItems(Inventory.getAllParts());
+        addPartTableView.setItems(Inventory.getAllParts());
+        
         
         //parts Table
         addPartIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -143,13 +167,13 @@ public class AddProductViewController {
         addPartInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addPartPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
-        //Setting up deleteTable
-//        deleteProductTableView.setItems(Product.getAllAssociatedPartsa)
+        //Setting up associatedProductTable
+        associatedPartsTableView.setItems(currentProduct.getAllAssociatedParts());
         
-        deletePartIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        deletePartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        deleteInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        deletePriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        associatedPartsIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        associatedPartsNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        associatedPartsInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        associatedPartsPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
     }
 

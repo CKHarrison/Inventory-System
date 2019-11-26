@@ -32,8 +32,8 @@ import javafx.stage.Stage;
 public class AddPartViewController implements Initializable {
     
     //Global Variables
-    Stage stage;
-    Parent scene;
+    private Stage stage;
+    private Parent scene;
     private static int uniqueId =0;
     
     //FXML Buttons, Fields, and Labels
