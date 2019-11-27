@@ -146,8 +146,10 @@ public class MainScreenController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this part?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) {
-            partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
-            Inventory.deletePart(partToBeDeleted);
+                partToBeDeleted = partTableView.getSelectionModel().getSelectedItem();
+                Inventory.deletePart(partToBeDeleted);
+                //updateTable view
+                partTableView.setItems(Inventory.getAllParts());
             }  
          }  
     }
@@ -218,6 +220,8 @@ public class MainScreenController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == ButtonType.OK) {
                 Inventory.deleteProduct(productToBeDeleted);
+                //update tableview
+                productTableView.setItems(Inventory.getAllProducts());
             }
         
         }
