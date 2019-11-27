@@ -104,14 +104,67 @@ public class AddPartViewController implements Initializable {
             String companyName = null;
             
             //Checking validations
-            checkValidation(stock, max, min, price);
+            //inventory greater than max
+            if(stock > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot exceed max value");
+                alert.showAndWait();
+                return;
+            }
+            //inventory smaller than min
+            if(stock < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot be smaller than the min value");
+                alert.showAndWait();
+                return;                
+            }
+            
+            //checking if minimum or maximum is invalid
+            if(min > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The minimum level cannot be greater than the max value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(max < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The max value cannot be smaller than the min value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(price < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Price cannot be a negative number.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            
+                
             
 
+            //if valdiations pass, save the part as long as machine id > 0
             boolean inHouse = addPartInHouseRadioButton.isSelected();
 
             //check to see if inHouse or outSourced is selected, if then accordingly set machineId or companyName
             if(inHouse) {
                 machineId = Integer.parseInt(addPartCompanyNameOrMachineIDTextField.getText());
+                if(machineId < 0) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setContentText("Machine ID must be a positive number");
+                    alert.showAndWait();
+                    return;    
+                }
+               
+                                
             } else {
                 companyName = addPartCompanyNameOrMachineIDTextField.getText();
             }
@@ -162,53 +215,7 @@ public class AddPartViewController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-    
-    public void checkValidation(int stock, int max, int min, double price) {
-        //inventory greater than max
-            if(stock > max) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The inventory level cannot exceed max value.");
-                alert.showAndWait();
-                return;
-            }
-            //inventory smaller than min
-            if(stock < min) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The inventory level cannot be smaller than the min value.");
-                alert.showAndWait();
-                return;                
-            }
-            
-            //checking if minimum or maximum is invalid
-            if(min > max) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The minimum level cannot be greater than the max value.");
-                alert.showAndWait();
-                return;                
-            }
-            
-            if(max < min) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The max value cannot be smaller than the min value.");
-                alert.showAndWait();
-                return;                
-            }
-            
-            if(price < 0) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("Price cannot be a negative number.");
-                alert.showAndWait();
-                return;                
-            }
-    }
-    
-    
-
+   
     /**
      * Initializes the controller class.
      */

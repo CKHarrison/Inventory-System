@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -108,11 +109,63 @@ public class ModifyPartViewController implements Initializable {
         int machineId = 0;
         String companyName = null;
         
+        //checking validations
+        //Checking validations
+            //inventory greater than max
+            if(stock > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot exceed max value");
+                alert.showAndWait();
+                return;
+            }
+            //inventory smaller than min
+            if(stock < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot be smaller than the min value");
+                alert.showAndWait();
+                return;                
+            }
+            
+            //checking if minimum or maximum is invalid
+            if(min > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The minimum level cannot be greater than the max value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(max < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The max value cannot be smaller than the min value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(price < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Price cannot be a negative number.");
+                alert.showAndWait();
+                return;                
+            }
+        
+            //valdiations passed saving the part
         boolean inHouse = modifyPartInHouseRadioButton.isSelected();
         
         //check to see if inHouse or outSourced is selected, if then accordingly set machineId or companyName
         if(inHouse) {
             machineId = Integer.parseInt(modifyPartCompanyNameOrMachineIDTextField.getText());
+            if(machineId < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Machine ID must be a positive number");
+                alert.showAndWait();
+                return;    
+            }
         } else {
             companyName = modifyPartCompanyNameOrMachineIDTextField.getText();
         }
@@ -174,6 +227,7 @@ public class ModifyPartViewController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
 
     /**
      * Initializes the controller class.
