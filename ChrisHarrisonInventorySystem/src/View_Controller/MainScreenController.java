@@ -157,20 +157,7 @@ public class MainScreenController implements Initializable {
     //Product Button Handlers
       @FXML
     void onActionSearchProductButton(ActionEvent event) {
-        String searchCriteria = productSearchField.getText().trim();
-        
-        
-        
-        
-        
-        
-        //old search method
-//        for(Product product : Inventory.getAllProducts()) {
-//            if(Integer.toString(product.getId()).equals(searchCriteria)
-//                    || product.getName().toLowerCase().contains(searchCriteria.toLowerCase())) {
-//                productTableView.getSelectionModel().select(product);
-//            }
-//        }
+          searchProduct(event);
     }
 
     @FXML
@@ -282,7 +269,7 @@ public class MainScreenController implements Initializable {
             if(foundFlag == false) {                
                   Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Warning");
-                    alert.setContentText("No product matches that search.");
+                    alert.setContentText("No part matches that search.");
                     partTableView.setItems(Inventory.getAllParts());
                     partsSearchTextField.clear();
                     alert.showAndWait(); 
@@ -303,12 +290,69 @@ public class MainScreenController implements Initializable {
            } catch(NullPointerException exception) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
-                alert.setContentText("No product matches that search.");
+                alert.setContentText("No part matches that search.");
                 partTableView.setItems(Inventory.getAllParts());
                 partsSearchTextField.clear();
                 alert.showAndWait();
            }  
         }             
+    }
+    
+    public void searchProduct(ActionEvent event) {
+         //resetting if the search field is empty
+        String searchCriteria = productSearchField.getText().trim();
+        if(searchCriteria.isEmpty()) {
+            productTableView.setItems(Inventory.getAllProducts());
+            return;
+        }
+
+        //search for id by parsing the searchCriteria to int
+        try {
+            //flagging whether the part was found
+            boolean foundFlag = false;
+            int searchInt = Integer.parseInt(searchCriteria);
+            for(Product product : Inventory.getAllProducts()) {
+                if(product.getId() == (searchInt)) {
+                     ObservableList<Product> tempList = FXCollections.observableArrayList();
+                    tempList.add(product);
+                    productTableView.setItems(tempList);
+                    productTableView.getSelectionModel().select(product);
+                    foundFlag = true;
+                    return;
+               } 
+                
+            }
+            //if the part wasn't found
+            if(foundFlag == false) {                
+                  Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setContentText("No product matches that search.");
+                    productTableView.setItems(Inventory.getAllProducts());
+                    productSearchField.clear();
+                    alert.showAndWait(); 
+                    return;
+            }
+            //if that errors out catch it and search by name
+        } catch(NumberFormatException e) { 
+            ObservableList<Product> foundProducts = FXCollections.observableArrayList();
+           try {
+                foundProducts.addAll(Inventory.lookupProduct(searchCriteria));
+            productTableView.setItems(foundProducts);
+            productTableView.getSelectionModel().select(0);
+
+            /*if that doesn't work, the part doesn't exist, prevent crash by catching it 
+            * alerting the user to the invalid search, and resetting the whole thing
+            * this took way too long to figure out
+            */
+           } catch(NullPointerException exception) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("No product matches that search.");
+                productTableView.setItems(Inventory.getAllProducts());
+                productSearchField.clear();
+                alert.showAndWait();
+           }  
+        }     
     }
 
     
