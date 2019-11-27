@@ -268,36 +268,35 @@ public class MainScreenController implements Initializable {
                     partTableView.setItems(tempList);
                     partTableView.getSelectionModel().select(part);
                     return;
-                } else {
-                  Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning");
-                    alert.setContentText("No product matches that search.");
-                    partTableView.setItems(Inventory.getAllParts());
-                    partsSearchTextField.clear();
-                    alert.showAndWait();  
-                    return;
-                }
+               } //else {
+//                  Alert alert = new Alert(Alert.AlertType.WARNING);
+//                    alert.setTitle("Warning");
+//                    alert.setContentText("No product matches that search.");
+//                    partTableView.setItems(Inventory.getAllParts());
+//                    partsSearchTextField.clear();
+//                    alert.showAndWait(); 
+//                    return;
+//                }
             }
             //if that errors out catch it and search by name
         } catch(NumberFormatException e) { 
             ObservableList<Part> foundParts = FXCollections.observableArrayList();
-            try {
+           try {
                 foundParts.addAll(Inventory.lookupPart(searchCriteria));
-                partTableView.setItems(foundParts);
-                partTableView.getSelectionModel().select(0);
+            partTableView.setItems(foundParts);
+            partTableView.getSelectionModel().select(0);
 
-                /*if that doesn't work, the part doesn't exist, prevent crash by catching it 
-                * alerting the user to the invalid search, and resetting the whole thing
-                * this took way too long to figure out
-                */
-            } catch(NullPointerException exception) {
+            /*if that doesn't work, the part doesn't exist, prevent crash by catching it 
+            * alerting the user to the invalid search, and resetting the whole thing
+            * this took way too long to figure out
+            */
+           } catch(NullPointerException exception) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setContentText("No product matches that search.");
                 partTableView.setItems(Inventory.getAllParts());
                 partsSearchTextField.clear();
                 alert.showAndWait();
-                return;
            }  
         }             
     }
