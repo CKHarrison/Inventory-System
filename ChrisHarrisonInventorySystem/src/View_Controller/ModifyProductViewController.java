@@ -4,14 +4,18 @@ import Model.Inventory;
 import Model.Part;
 import Model.Product;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.text.DecimalFormat;
+import java.util.Optional;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -23,7 +27,11 @@ public class ModifyProductViewController {
     private Stage stage;
     private Parent scene;
     private Product productToModify;
-    private int id;
+    // create a list of parts that were deleted to restore if the user cancels
+    //out of modifyProduct
+    ObservableList<Part> deletedPartsList = FXCollections.observableArrayList();
+    //original list of associated parts
+    ObservableList<Part> originalAssociatedPartsList = FXCollections.observableArrayList();
 
     @FXML
     private Button modifyProductPartSearchButton;
@@ -107,42 +115,142 @@ public class ModifyProductViewController {
     @FXML
     void onActionAddButton(ActionEvent event) {
         Part newPart = modifyPartAddTableView.getSelectionModel().getSelectedItem();
-        productToModify.addAssociatedPart(newPart);
+        if(productToModify.getAllAssociatedParts().contains(newPart)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setContentText("Cannot add duplicate parts.");
+            alert.showAndWait();
+        } else {
+            productToModify.addAssociatedPart(newPart);
+        }
     }
 
     @FXML
     void onActionDeleteButton(ActionEvent event) {
-        Part partToDelete = modifyAssociatedPartsTableView.getSelectionModel().getSelectedItem();
-        productToModify.deleteAssociatedPart(partToDelete);
+        //if nothing is selected show error
+        Part partToBeDeleted = modifyAssociatedPartsTableView.getSelectionModel().getSelectedItem();
+        
+        if(productToModify.getAllAssociatedParts().isEmpty() || partToBeDeleted == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occurrred");
+            alert.setContentText("Please select a part to be deleted");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this part?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK) {
+                //populate deletedPartsList
+                deletedPartsList.add(partToBeDeleted);
+                
+               //delete the part from the product
+                productToModify.deleteAssociatedPart(partToBeDeleted);
+            }  
+        }
     }
 
     @FXML
     void onActionSaveButton(ActionEvent event) throws IOException {
-        //setting all of the info to the product
-        productToModify.setName(modifyProductNameTextField.getText().trim());
-        productToModify.setPrice(Double.parseDouble(modifyProductPriceTextField.getText()));
-        productToModify.setStock(Integer.parseInt(modifyProductInvTextField.getText()));
-        productToModify.setMax(Integer.parseInt(modifyProductMaxTextField.getText()));
-        productToModify.setMin(Integer.parseInt(modifyProductMinTextField.getText()));
         
-        //looking up the old product based on id
-        Product oldProduct = Inventory.lookupProduct(productToModify.getId());
-        //finding the index of the old product in the inventory list
-        int index = Inventory.getAllProducts().indexOf(oldProduct);
-        //updating to the new product 
-        Inventory.updateProduct(index, productToModify);
-        
-        showMainScreen(event);
+        try {
+            //setting all of the info to the product
+            productToModify.setName(modifyProductNameTextField.getText().trim());
+            productToModify.setPrice(Double.parseDouble(modifyProductPriceTextField.getText()));
+            productToModify.setStock(Integer.parseInt(modifyProductInvTextField.getText()));
+            productToModify.setMax(Integer.parseInt(modifyProductMaxTextField.getText()));
+            productToModify.setMin(Integer.parseInt(modifyProductMinTextField.getText()));
+            
+          
+            
+            //make sure there is at least one associated part
+            if(productToModify.getAllAssociatedParts().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("There must be at least one part associated with this product.");
+                alert.showAndWait();
+                return;
+            }
+            
+            //making sure the inventory levels are within max and min range
+            //minimum value cannot be less than 0
+            if(productToModify.getStock() > productToModify.getMax()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Inventory cannot be greater than max value.");
+                alert.showAndWait();
+                return;
+            } else if(productToModify.getStock() < productToModify.getMin()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Inventory cannot be less than the minimum value.");
+                alert.showAndWait();
+                return;
+            } else if(productToModify.getMin() < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The minimum inventory level must be 0 or greater.");
+                alert.showAndWait();
+                return;
+            }
+            
+            //making sure that the total price of the product is at least equal to the total price of all associated products
+            
+              //getting the price of all the associatedProducts
+            double totalPartPrice =0;
+            for(Part part : productToModify.getAllAssociatedParts()) {
+                totalPartPrice += part.getPrice();
+            }
+            
+            if(productToModify.getPrice() < totalPartPrice) {
+                DecimalFormat formattedPrice = new DecimalFormat("#.##");
+                String price = formattedPrice.format(totalPartPrice);
+                
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The price of the product must be at least equal to the sum of the part's price: $" + price);                
+                alert.showAndWait();
+                return;
+            }
+
+            //looking up the old product based on id
+           Product oldProduct = Inventory.lookupProduct(productToModify.getId());
+           //finding the index of the old product in the inventory list
+           int index = Inventory.getAllProducts().indexOf(oldProduct);
+           //updating to the new product 
+           Inventory.updateProduct(index, productToModify);
+
+           switchToMainScreen(event);
+            
+        } catch (NumberFormatException e) {
+              Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please enter a valid value for each Text Field");
+            alert.showAndWait();
+        }
     }
     
     @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
-        showMainScreen(event);
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "The product will not be saved, do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            switchToMainScreen(event);
+             //if an original part has been deleted add it back
+            //check to see if the deleted list contains an original part
+            for(Part part : deletedPartsList) {
+                if(originalAssociatedPartsList.contains(part)){
+                    productToModify.addAssociatedPart(part);
+                }
+            }
+        } 
     }
     
     public void sendProduct(Product sentProduct) {
-        productToModify = sentProduct;
-        
+      productToModify = sentProduct;
+      //add original associated parts to originalAssociatedPartsList
+      for(Part part : sentProduct.getAllAssociatedParts()) {
+          originalAssociatedPartsList.add(part);
+      }
         //populating the fields with the info from the product
         modifyProductIdTextField.setText(Integer.toString(sentProduct.getId()));
         modifyProductNameTextField.setText(sentProduct.getName());
@@ -160,17 +268,16 @@ public class ModifyProductViewController {
         modifyAssociatedPartsPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
-     public void showMainScreen(ActionEvent event) throws IOException{
+     public void switchToMainScreen(ActionEvent event) throws IOException{
          stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
-    
-    
-    
+     
     @FXML
     public void initialize(){
+        
         //disable the id field
         modifyProductIdTextField.setDisable(true);
         
@@ -182,8 +289,6 @@ public class ModifyProductViewController {
         modifyPartAddPartNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         modifyPartAddInvLevelTableColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modifyPartAddPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
-       
     }
 
 }

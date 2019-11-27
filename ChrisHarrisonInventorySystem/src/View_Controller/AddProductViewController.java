@@ -169,8 +169,6 @@ public class AddProductViewController {
                 totalPartPrice += part.getPrice();
             }
             
-            
-            
             //making sure there is one or more part associated with the product
             if(currentProduct.getAllAssociatedParts().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -211,6 +209,7 @@ public class AddProductViewController {
                 alert.setTitle("Warning");
                 alert.setContentText("The price of the product must be at least equal to the sum of the part's price: $" + price);                
                 alert.showAndWait();
+                return;
             }
             
             
@@ -230,7 +229,7 @@ public class AddProductViewController {
     
       @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "The Part will not be saved, do you want to continue?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "The product will not be saved, do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == ButtonType.OK) {
             switchToMainScreen(event);
