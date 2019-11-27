@@ -4,12 +4,16 @@ import Model.Inventory;
 import Model.Part;
 import Model.Product;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -114,17 +118,37 @@ public class AddProductViewController {
     void onActionAddButton(ActionEvent event) {
         //setting up generic part that is selected when a part on the table is selected
         Part newAssociatedPart = addPartTableView.getSelectionModel().getSelectedItem();
-        //adding generic part to currentPart associatedParts list
-        currentProduct.addAssociatedPart(newAssociatedPart);
-        
-           System.out.println("Add Button Clicked");
+        if(currentProduct.getAllAssociatedParts().contains(newAssociatedPart)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setContentText("Cannot add duplicate parts.");
+            alert.showAndWait();
+        } else {
+            
+            //adding generic part to currentPart associatedParts list
+            currentProduct.addAssociatedPart(newAssociatedPart);
+        }
     }
 
     @FXML
     void onActionDeleteButton(ActionEvent event) {
+        //if nothing is selected show error
         Part partToBeDeleted = associatedPartsTableView.getSelectionModel().getSelectedItem();
-        currentProduct.deleteAssociatedPart(partToBeDeleted);
-        System.out.println("Delete Button Clicked");
+        
+        if(currentProduct.getAllAssociatedParts().isEmpty() || partToBeDeleted == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Occurrred");
+            alert.setContentText("Please select a part to be deleted");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this part?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent() && result.get() == ButtonType.OK) {            
+            currentProduct.deleteAssociatedPart(partToBeDeleted);
+            }  
+        }
+        
+        
     }
 
     @FXML
@@ -132,20 +156,85 @@ public class AddProductViewController {
         //generating unique id
         uniqueId++;
         
-        currentProduct.setId(uniqueId);
-        currentProduct.setName(addProductNameTextField.getText().trim());
-        currentProduct.setPrice(Double.parseDouble(addProductPriceTextField.getText()));
-        currentProduct.setStock(Integer.parseInt(addProductInvTextField.getText()));
-        currentProduct.setMax(Integer.parseInt(addProductMaxTextField.getText()));
-        currentProduct.setMin(Integer.parseInt(addProductMinTextField.getText()));
-        Inventory.addProduct(currentProduct);
-        switchToMainScreen(event);
-        System.out.println("Save Button Clicked");
+        try{
+            currentProduct.setId(uniqueId);
+            currentProduct.setName(addProductNameTextField.getText().trim());
+            currentProduct.setPrice(Double.parseDouble(addProductPriceTextField.getText()));
+            currentProduct.setStock(Integer.parseInt(addProductInvTextField.getText()));
+            currentProduct.setMax(Integer.parseInt(addProductMaxTextField.getText()));
+            currentProduct.setMin(Integer.parseInt(addProductMinTextField.getText()));
+            
+            double totalPartPrice =0;
+            for(Part part : currentProduct.getAllAssociatedParts()) {
+                totalPartPrice += part.getPrice();
+            }
+            
+            
+            
+            //making sure there is one or more part associated with the product
+            if(currentProduct.getAllAssociatedParts().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("There must be at least one part associated with this product.");
+                alert.showAndWait();
+                return;
+            }
+            
+            //making sure the inventory levels are within max and min range
+            //minimum value cannot be less than 0
+            if(currentProduct.getStock() > currentProduct.getMax()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Inventory cannot be greater than max value.");
+                alert.showAndWait();
+                return;
+            } else if(currentProduct.getStock() < currentProduct.getMin()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Inventory cannot be less than the minimum value.");
+                alert.showAndWait();
+                return;
+            } else if(currentProduct.getMin() < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The minimum inventory level must be 0 or greater.");
+                alert.showAndWait();
+                return;
+            }
+            
+            //making sure that the total price of the product is at least equal to the total price of all associated products
+            if(currentProduct.getPrice() < totalPartPrice) {
+                DecimalFormat formattedPrice = new DecimalFormat("#.##");
+                String price = formattedPrice.format(totalPartPrice);
+                
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The price of the product must be at least equal to the sum of the part's price: $" + price);                
+                alert.showAndWait();
+            }
+            
+            
+            
+            else {
+                Inventory.addProduct(currentProduct);
+                switchToMainScreen(event);
+            }
+        } catch (NumberFormatException e) {
+              Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setContentText("Please enter a valid value for each Text Field");
+            alert.showAndWait();
+        }
+      
     }
     
       @FXML
     void onActionCancelButton(ActionEvent event) throws IOException {
-          switchToMainScreen(event);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "The Part will not be saved, do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            switchToMainScreen(event);
+        }         
     }  
     
     public void switchToMainScreen(ActionEvent event) throws IOException {

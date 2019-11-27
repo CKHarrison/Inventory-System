@@ -152,6 +152,14 @@ public class ModifyPartViewController implements Initializable {
                 alert.showAndWait();
                 return;                
             }
+            
+            if(min < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Minimum Inventory level cannot be a negative number.");
+                alert.showAndWait();
+                return;
+            }
         
             //valdiations passed saving the part
         boolean inHouse = modifyPartInHouseRadioButton.isSelected();

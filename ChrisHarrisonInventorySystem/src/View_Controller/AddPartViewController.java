@@ -117,8 +117,8 @@ public class AddPartViewController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setContentText("The inventory level cannot be smaller than the min value");
-                alert.showAndWait();
-                return;                
+                alert.showAndWait();   
+                return;
             }
             
             //checking if minimum or maximum is invalid
@@ -126,24 +126,32 @@ public class AddPartViewController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setContentText("The minimum level cannot be greater than the max value.");
-                alert.showAndWait();
-                return;                
+                alert.showAndWait();     
+                return;
             }
             
             if(max < min) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setContentText("The max value cannot be smaller than the min value.");
-                alert.showAndWait();
-                return;                
+                alert.showAndWait();  
+                return;
             }
             
             if(price < 0) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setContentText("Price cannot be a negative number.");
+                alert.showAndWait();   
+                return;
+            }
+            
+            if(min < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Minimum Inventory level cannot be a negative number.");
                 alert.showAndWait();
-                return;                
+                return;
             }
             
             
