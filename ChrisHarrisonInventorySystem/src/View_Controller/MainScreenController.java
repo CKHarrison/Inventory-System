@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -89,15 +91,9 @@ public class MainScreenController implements Initializable {
     
     @FXML
     void onActionSearchPartButton(ActionEvent event) {
-        
-        String searchCriteria = partsSearchTextField.getText().trim();
-        for(Part part : Inventory.getAllParts()) {
-            if(Integer.toString(part.getId()).equals(searchCriteria) || 
-                    part.getName().toLowerCase().equals(searchCriteria)) {
-                partTableView.getSelectionModel().select(part);
-            }
-        }
+        searchPart(event);
     }
+    
     
     @FXML
     void onActionAddPartButton(ActionEvent event) throws IOException {
@@ -160,12 +156,19 @@ public class MainScreenController implements Initializable {
       @FXML
     void onActionSearchProductButton(ActionEvent event) {
         String searchCriteria = productSearchField.getText().trim();
-        for(Product product : Inventory.getAllProducts()) {
-            if(Integer.toString(product.getId()).equals(searchCriteria)
-                    || product.getName().toLowerCase().equals(searchCriteria.toLowerCase())) {
-                productTableView.getSelectionModel().select(product);
-            }
-        }
+        
+        
+        
+        
+        
+        
+        //old search method
+//        for(Product product : Inventory.getAllProducts()) {
+//            if(Integer.toString(product.getId()).equals(searchCriteria)
+//                    || product.getName().toLowerCase().contains(searchCriteria.toLowerCase())) {
+//                productTableView.getSelectionModel().select(product);
+//            }
+//        }
     }
 
     @FXML
@@ -231,6 +234,8 @@ public class MainScreenController implements Initializable {
         
     }
     
+    //custom methods to prevent retyping code
+    
         //Switch Scene method 
     public void switchScene(ActionEvent event, String sceneName) throws IOException {
         //switching the stage to the AddPartView
@@ -241,6 +246,60 @@ public class MainScreenController implements Initializable {
         //switching the scene to a new stage
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+    
+    //Product search method
+    
+    public void searchPart(ActionEvent event) {
+        //resetting if the search field is empty
+        String searchCriteria = partsSearchTextField.getText().trim();
+        if(searchCriteria.isEmpty()) {
+            partTableView.setItems(Inventory.getAllParts());
+            return;
+        }
+
+        //search for id by parsing the searchCriteria to int
+        try {
+            int searchInt = Integer.parseInt(searchCriteria);
+            for(Part part : Inventory.getAllParts()) {
+                if(part.getId() == (searchInt)) {
+                     ObservableList<Part> tempList = FXCollections.observableArrayList();
+                    tempList.add(part);
+                    partTableView.setItems(tempList);
+                    partTableView.getSelectionModel().select(part);
+                    return;
+                } else {
+                  Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setContentText("No product matches that search.");
+                    partTableView.setItems(Inventory.getAllParts());
+                    partsSearchTextField.clear();
+                    alert.showAndWait();  
+                    return;
+                }
+            }
+            //if that errors out catch it and search by name
+        } catch(NumberFormatException e) { 
+            ObservableList<Part> foundParts = FXCollections.observableArrayList();
+            try {
+                foundParts.addAll(Inventory.lookupPart(searchCriteria));
+                partTableView.setItems(foundParts);
+                partTableView.getSelectionModel().select(0);
+
+                /*if that doesn't work, the part doesn't exist, prevent crash by catching it 
+                * alerting the user to the invalid search, and resetting the whole thing
+                * this took way too long to figure out
+                */
+            } catch(NullPointerException exception) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("No product matches that search.");
+                partTableView.setItems(Inventory.getAllParts());
+                partsSearchTextField.clear();
+                alert.showAndWait();
+                return;
+           }  
+        }             
     }
 
     
@@ -268,6 +327,11 @@ public class MainScreenController implements Initializable {
         productPricePerUnitTableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         
-    }    
-    
+        System.out.println(Inventory.lookupPart("ai").size());
+        
+         for(Part part : Inventory.lookupPart("ai")) {
+            System.out.println(part.getName());
+        }
+        
+    }
 }
