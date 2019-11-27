@@ -260,6 +260,8 @@ public class MainScreenController implements Initializable {
 
         //search for id by parsing the searchCriteria to int
         try {
+            //flagging whether the part was found
+            boolean foundFlag = false;
             int searchInt = Integer.parseInt(searchCriteria);
             for(Part part : Inventory.getAllParts()) {
                 if(part.getId() == (searchInt)) {
@@ -267,16 +269,20 @@ public class MainScreenController implements Initializable {
                     tempList.add(part);
                     partTableView.setItems(tempList);
                     partTableView.getSelectionModel().select(part);
+                    foundFlag = true;
                     return;
-               } //else {
-//                  Alert alert = new Alert(Alert.AlertType.WARNING);
-//                    alert.setTitle("Warning");
-//                    alert.setContentText("No product matches that search.");
-//                    partTableView.setItems(Inventory.getAllParts());
-//                    partsSearchTextField.clear();
-//                    alert.showAndWait(); 
-//                    return;
-//                }
+               } 
+                
+            }
+            //if the part wasn't found
+            if(foundFlag == false) {                
+                  Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setContentText("No product matches that search.");
+                    partTableView.setItems(Inventory.getAllParts());
+                    partsSearchTextField.clear();
+                    alert.showAndWait(); 
+                    return;
             }
             //if that errors out catch it and search by name
         } catch(NumberFormatException e) { 
