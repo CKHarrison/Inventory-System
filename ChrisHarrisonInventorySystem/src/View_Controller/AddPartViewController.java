@@ -104,47 +104,8 @@ public class AddPartViewController implements Initializable {
             String companyName = null;
             
             //Checking validations
-            //inventory greater than max
-            if(stock > max) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The inventory level cannot exceed max value");
-                alert.showAndWait();
-                return;
-            }
-            //inventory smaller than min
-            if(stock < min) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The inventory level cannot be smaller than the min value");
-                alert.showAndWait();
-                return;                
-            }
+            checkValidation(stock, max, min, price);
             
-            //checking if minimum or maximum is invalid
-            if(min > max) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The minimum level cannot be greater than the max value.");
-                alert.showAndWait();
-                return;                
-            }
-            
-            if(max < min) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The max value cannot be smaller than the min value.");
-                alert.showAndWait();
-                return;                
-            }
-            
-            if(price < 0) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("Price cannot be a negative number.");
-                alert.showAndWait();
-                return;                
-            }
 
             boolean inHouse = addPartInHouseRadioButton.isSelected();
 
@@ -182,9 +143,6 @@ public class AddPartViewController implements Initializable {
 //            System.out.println("Exception: " + e);
 //            System.out.println("Exception: " + e.getMessage());
         }
-  
-       
-
     }
     
       @FXML
@@ -203,6 +161,50 @@ public class AddPartViewController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+    
+    public void checkValidation(int stock, int max, int min, double price) {
+        //inventory greater than max
+            if(stock > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot exceed max value.");
+                alert.showAndWait();
+                return;
+            }
+            //inventory smaller than min
+            if(stock < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The inventory level cannot be smaller than the min value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            //checking if minimum or maximum is invalid
+            if(min > max) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The minimum level cannot be greater than the max value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(max < min) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("The max value cannot be smaller than the min value.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            if(price < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Price cannot be a negative number.");
+                alert.showAndWait();
+                return;                
+            }
     }
     
     
