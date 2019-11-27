@@ -103,13 +103,7 @@ public class ModifyProductViewController {
     
     @FXML
     void onActionSearchButton(ActionEvent event) {
-        String searchCriteria = modifyProductPartSearchTextField.getText().trim();
-        for(Part part : Inventory.getAllParts()) {
-            if(Integer.toString(part.getId()).equals(searchCriteria) || 
-                    part.getName().toLowerCase().equals(searchCriteria)) {
-                modifyPartAddTableView.getSelectionModel().select(part);
-            }
-        }
+        searchPart(event);
     }
     
     @FXML
@@ -273,6 +267,63 @@ public class ModifyProductViewController {
         scene = FXMLLoader.load(getClass().getResource("/View_Controller/MainScreen.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+     
+    public void searchPart(ActionEvent event) {
+        //resetting if the search field is empty
+        String searchCriteria = modifyProductPartSearchTextField.getText().trim();
+        if(searchCriteria.isEmpty()) {
+            modifyPartAddTableView.setItems(Inventory.getAllParts());
+            return;
+        }
+
+        //search for id by parsing the searchCriteria to int
+        try {
+            //flagging whether the part was found
+            boolean foundFlag = false;
+            int searchInt = Integer.parseInt(searchCriteria);
+            for(Part part : Inventory.getAllParts()) {
+                if(part.getId() == (searchInt)) {
+                     ObservableList<Part> tempList = FXCollections.observableArrayList();
+                    tempList.add(part);
+                    modifyPartAddTableView.setItems(tempList);
+                    modifyPartAddTableView.getSelectionModel().select(part);
+                    foundFlag = true;
+                    return;
+               } 
+                
+            }
+            //if the part wasn't found
+            if(foundFlag == false) {                
+                  Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setContentText("No part matches that search.");
+                    modifyPartAddTableView.setItems(Inventory.getAllParts());
+                    modifyProductPartSearchTextField.clear();
+                    alert.showAndWait(); 
+                    return;
+            }
+            //if that errors out catch it and search by name
+        } catch(NumberFormatException e) { 
+            ObservableList<Part> foundParts = FXCollections.observableArrayList();
+           try {
+                foundParts.addAll(Inventory.lookupPart(searchCriteria));
+            modifyPartAddTableView.setItems(foundParts);
+            modifyPartAddTableView.getSelectionModel().select(0);
+
+            /*if that doesn't work, the part doesn't exist, prevent crash by catching it 
+            * alerting the user to the invalid search, and resetting the whole thing
+            * this took way too long to figure out
+            */
+           } catch(NullPointerException exception) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("No part matches that search.");
+                modifyPartAddTableView.setItems(Inventory.getAllParts());
+                modifyProductPartSearchTextField.clear();
+                alert.showAndWait();
+           }  
+        }             
     }
      
     @FXML
