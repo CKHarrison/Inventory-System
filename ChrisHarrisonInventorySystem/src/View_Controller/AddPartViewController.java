@@ -105,37 +105,38 @@ public class AddPartViewController implements Initializable {
             
             //Checking validations
             //inventory greater than max
-            if(stock > max) {
+            if(!(stock <= max && stock >= min)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
-                alert.setContentText("The inventory level cannot exceed max value");
+                alert.setContentText("The inventory must be within the minimum level and maximum level.");
                 alert.showAndWait();
-                return;
-            }
-            //inventory smaller than min
-            if(stock < min) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setContentText("The inventory level cannot be smaller than the min value");
-                alert.showAndWait();   
-                return;
+                return;       
             }
             
             //checking if minimum or maximum is invalid
             if(min > max) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
-                alert.setContentText("The minimum level cannot be greater than the max value.");
-                alert.showAndWait();     
-                return;
+                alert.setContentText("The minimum inventory level cannot be greater than the maximum level.");
+                alert.showAndWait();
+                return;                
             }
             
             if(max < min) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
-                alert.setContentText("The max value cannot be smaller than the min value.");
-                alert.showAndWait();  
-                return;
+                alert.setContentText("The maximum inventory level cannot be smaller than the minimum level.");
+                alert.showAndWait();
+                return;                
+            }
+            
+            //checking to make sure minimum is not less than 0
+            if(min < 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("the minimum inventory level must be at least 0.");
+                alert.showAndWait();
+                return; 
             }
             
             if(price < 0) {

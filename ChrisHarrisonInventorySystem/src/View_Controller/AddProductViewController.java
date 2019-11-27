@@ -174,20 +174,35 @@ public class AddProductViewController {
             }
             
             //making sure the inventory levels are within max and min range
-            //minimum value cannot be less than 0
-            if(currentProduct.getStock() > currentProduct.getMax()) {
+            if(!(currentProduct.getStock() >= currentProduct.getMin() && currentProduct.getStock() <= currentProduct.getMax())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
-                alert.setContentText("Inventory cannot be greater than max value.");
+                alert.setContentText("Inventory must be within the range of minimum and maximum levels.");
                 alert.showAndWait();
                 return;
-            } else if(currentProduct.getStock() < currentProduct.getMin()) {
+            } 
+            
+               
+            //if max is less than min
+            if(currentProduct.getMax() < currentProduct.getMin()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
-                alert.setContentText("Inventory cannot be less than the minimum value.");
+                alert.setContentText("Maximum inventory greater or equal to minimum inventory level");
                 alert.showAndWait();
                 return;
-            } else if(currentProduct.getMin() < 0) {
+            }
+            
+            //if min is greater than max
+            if(currentProduct.getMin() > currentProduct.getMax()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setContentText("Minimum inventory level must be less than or equal to maximum inventory level.");
+                alert.showAndWait();
+                return;
+            }
+            
+            //making sure min is not less than 0
+            if(currentProduct.getMin() < 0) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setContentText("The minimum inventory level must be 0 or greater.");
